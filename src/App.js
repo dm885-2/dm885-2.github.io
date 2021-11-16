@@ -1,8 +1,10 @@
-import LoginPage from "./components/LoginPage";
+// import LoginPage from "./components/LoginPage";
+import HistoryPage from "./components/HistoryPage";
 
 function App() {
   return (
-    <LoginPage />
+    <HistoryPage />
+    // <LoginPage />
   );
 }
 
