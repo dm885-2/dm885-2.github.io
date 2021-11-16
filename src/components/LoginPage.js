@@ -1,6 +1,6 @@
 import React from "react";
 
-import {api} from "../helpers";
+import {API} from "../helpers";
 
 export default class LoginPage extends React.Component {
 
@@ -16,7 +16,7 @@ export default class LoginPage extends React.Component {
         }, {});
         console.log(values);
 
-        const data = await api("POST", "login", values);
+        const data = await API.call("POST", "auth/login", values);
         console.log("Login response", data);
     }
 

@@ -41,9 +41,9 @@ export class API {
 
     static async refreshToken()
     {
-        const data = await API.rawCall("GET", "refreshToken", {
-            Authorization: API.refreshToken ?? undefined,
-        }, data);
+        const data = await API.rawCall("GET", "refreshToken", {}, {
+            refreshToken: API.refreshToken,
+        });
         if(data)
         {
             API.refreshToken = data.token;
