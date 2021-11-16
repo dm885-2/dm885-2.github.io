@@ -1,11 +1,13 @@
 // import LoginPage from "./components/LoginPage";
+import React from "react";
 import HistoryPage from "./components/HistoryPage";
 
-function App() {
-  return (
-    <HistoryPage />
-    // <LoginPage />
-  );
-}
+export default class App extends React.Component {
 
-export default App;
+  render()
+  {
+    return (
+      <HistoryPage />
+    );
+  }
+}
