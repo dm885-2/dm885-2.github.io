@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 export default class HistoryPage extends React.Component {
     state = {
@@ -51,11 +52,11 @@ export default class HistoryPage extends React.Component {
                     </div>
                 </div>
                 <div className="row pt-1">
-                    <div class="d-grid gap-2">
+                    <Link to="/newRun" className="d-grid gap-2">
                         <button type="button" className="btn btn-primary" >
                             Start new run!
                         </button>
-                    </div>
+                    </Link>
                 </div>
 
                 <div className="row pt-4">

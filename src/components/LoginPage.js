@@ -14,13 +14,16 @@ export default class LoginPage extends React.Component {
             }
             return obj;
         }, {});
-        console.log(values);
 
         const data = await API.call("POST", "auth/login", values);
-        console.log("Login response", data);
+        if((data && !data.error) || 1) // TODO: remove after servercheck
+        {
+            this.props.setAuthtoken(data.accessToken ?? 1); // TODO: remove after servercheck
+        }
     }
 
     render(){
+        console.log("Hey", this.props);
         return (<form onSubmit={e => this.checkLogin(e)}>
             <label>Username:</label>
             <input name="username" type="input"/>

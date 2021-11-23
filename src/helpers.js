@@ -14,22 +14,22 @@ export class API {
     static authToken = false;
     static refreshToken = false;
 
-    static rawCall(method, endpoint, headers = {}, data)
+    static rawCall(method, endpoint, headers = {}, body)
     {
        return fetch(`http://${IP}/${endpoint}`, {
             method,
             headers,
-            body: data ? JSON.stringify(data) : undefined,
+            body: body ? JSON.stringify(body) : undefined,
         })
         .then(d => d.json())
         .catch(_ => false);
     }
 
-    static async call(method = "GET", endpoint, data = {})
+    static async call(method = "GET", endpoint, body = {})
     {
         const data = await API.rawCall(method, endpoint, {
             Authorization: API.authToken ?? undefined,
-        }, data);
+        }, body);
         if(!data && API.refreshToken) // Auth token expired, refresh it and retry
         {
             await API.refreshToken();
