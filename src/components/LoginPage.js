@@ -8,6 +8,11 @@ export default class LoginPage extends React.Component {
     state = {
         loading: false,
     };
+
+    /**
+     * Checks the credentials, and signs the user in if correct.
+     * @param SubmitEvent e 
+     */
     async checkLogin(e)
     {
         e.preventDefault();

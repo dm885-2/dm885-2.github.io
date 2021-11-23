@@ -12,6 +12,10 @@ export default class App extends React.Component {
     authToken: false,
   };
 
+  /**
+   * Sets the AuthToken.
+   * @param string token the authToken
+   */
   setAuthtoken(token)
   {
     API.authToken = token;
