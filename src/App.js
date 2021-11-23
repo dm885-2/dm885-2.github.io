@@ -1,28 +1,38 @@
 import React from "react";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {HashRouter, Routes, Route} from "react-router-dom";
 
 import LoginPage from "./components/LoginPage";
 import HistoryPage from "./components/HistoryPage";
 import NewRunPage from "./components/NewRunPage";
 
+import {API} from "./helpers";
+
 export default class App extends React.Component {
   state = {
-    authToken: true,
+    authToken: false,
   };
+
+  setAuthtoken(token)
+  {
+    API.authToken = token;
+    this.setState({
+      authToken: token
+    });
+  }
 
   render()
   {
-    return (<Router>
+    return (<HashRouter>
     {
       this.state.authToken ?
       <Routes>
-        <Route exact path="/" element={<HistoryPage />}/>
-        <Route exact path="/newRun" element={<NewRunPage />}/>
+        <Route path="/" element={<HistoryPage />}/>
+        <Route path="/newRun" element={<NewRunPage />}/>
       </Routes>
       : <Routes>
-        <Route exact path="/" element={<LoginPage setAuthtoken={authToken => this.setState({authToken})} />}/>
+        <Route path="*" element={<LoginPage setAuthtoken={t => this.setAuthtoken(t)} />}/>
       </Routes>
     }
-</Router>);
+</HashRouter>);
   }
 }
