@@ -18,9 +18,6 @@ class SignUpPage extends React.Component {
     async signUp(e)
     {
         e.preventDefault();
-        this.setState({
-            loading: true,
-        });
         const userInput = getInputValues(e.target.elements);
         
         if(userInput.username.length === 0)
@@ -32,11 +29,14 @@ class SignUpPage extends React.Component {
         }else if(userInput.password !== userInput.passwordRepeat){
             alert("The two given password are not the same");
         }else{
+            this.setState({
+                loading: true,
+            });
             const data = await API.call("POST", "auth/signup", userInput);
             this.setState({
                 loading: false,
             });
-            if((data && !data.error)) // TODO: remove after servercheck
+            if((data && !data.error))
             {
                 alert("Your user has been created!");
                 this.props.history.push("/");

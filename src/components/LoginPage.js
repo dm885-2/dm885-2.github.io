@@ -24,11 +24,12 @@ class LoginPage extends React.Component {
         const values = getInputValues(e.target.elements);
 
         const data = await API.call("POST", "auth/login", values);
-        if((data && !data.error)) // TODO: remove after servercheck
+        if((data && !data.error))
         {
             this.props.history.push("/");
-            this.props.setAuthtoken(data.accessToken); // TODO: remove after servercheck
+            this.props.setAuthtoken(data.accessToken);
         }else{
+            alert("Wrong username, or password.");
             this.setState({
                 loading: false,
             });
