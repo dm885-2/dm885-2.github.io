@@ -1,26 +1,14 @@
 import React, {useState} from "react";
-import {HashRouter as Router, Routes, Route, useNavigate} from "react-router-dom";
+import {HashRouter as Router, Switch, Route} from "react-router-dom";
 
 import LoginPage from "./components/LoginPage";
 import HistoryPage from "./components/HistoryPage";
 import NewRunPage from "./components/NewRunPage";
+import EditModelPage from "./components/EditModelPage";
 
 import {API} from "./helpers";
 
-const withNavigate = WrappedComponent => (props = {}) => {
-  const navigate = useNavigate();
-
-  return <WrappedComponent {...props} navigate={navigate} />;
-};
-
 export default function App()
-{
-  return (<Router>
-              <AllRoutes/>
-        </Router>);
-}
-
-function AllRoutes()
 {
   const [authToken, setAuthTokenState] = useState(true);
 
@@ -32,16 +20,26 @@ function AllRoutes()
     API.authToken = token;
     setAuthTokenState(token);
   };
-  return (<>
-    {
-        authToken ?
-        <Routes>
-          <Route path="/" element={<HistoryPage />}/>
-          <Route path="/newRun" element={withNavigate(NewRunPage)({})}/>
-        </Routes>
-        : <Routes>
-          <Route path="*" element={<LoginPage setAuthtoken={t => setAuthToken(t)} />}/>
-        </Routes>
+
+  return (<Router>
+        {
+          authToken ?
+            <Switch>
+              <Route path="/newRun">
+                <NewRunPage/>
+              </Route>
+              <Route path="/model/:id">
+                <EditModelPage/>
+              </Route>
+              <Route path="*">
+                <HistoryPage />
+              </Route>
+            </Switch>
+            : <Switch>
+              <Route path="*">
+                <LoginPage setAuthtoken={t => setAuthToken(t)} />
+              </Route>
+            </Switch>
       }
-  </>);
+      </Router>);
 }

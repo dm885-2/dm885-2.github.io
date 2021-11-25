@@ -1,7 +1,10 @@
 import React from "react";
+import {withRouter} from "react-router";
+
 import {API, solvers} from "../helpers";
 
-export default class NewRunPage extends React.Component {
+// Create a new component that will produce some HTML where a user can choose multiple Solver from a dropdown and also give a text input for some flags to set.
+class NewRunPage extends React.Component {
     newSolver = {
         solver: solvers[0],
         flagA: false,
@@ -94,7 +97,7 @@ export default class NewRunPage extends React.Component {
                         <select className="form-select form-select-lg mb-2" onChange={(e) => this.setState({currentModel: Number(e.target.value)})} defaultValue={this.state.currentModel} aria-label=".form-select-lg" style={{ width: '40%' }}>
                             <option value="0">Choose a model</option>
                             {this.state.models.map(model => (
-                                <option value={model.key}>{model.name}</option>
+                                <option value={model.key} key={model.key}>{model.name}</option>
                             ))}
                         </select>
                     </div>
@@ -103,7 +106,7 @@ export default class NewRunPage extends React.Component {
                         <select className="form-select form-select-lg mb-2" onChange={(e) => this.setState({currentDataset: Number(e.target.value)})} defaultValue={this.state.currentDataset} aria-label=".form-select-lg" style={{ width: '40%' }}>
                             <option value="0">Choose a dataset</option>
                             {this.state.data.map(data => (
-                                <option value={data.key}>{data.name}</option>
+                                <option value={data.key} key={data.key}>{data.name}</option>
                             ))}
                         </select>
                     </div>
@@ -115,7 +118,7 @@ export default class NewRunPage extends React.Component {
                         </label>
                         <select onChange={(e) => this.updateSolver("solver", e.target.value, key)} className="form-select form-select-lg mb-2" aria-label=".form-select-lg example" id="solver">
                             {
-                                solvers.map(solver => <option value={solver}>{solver}</option>)
+                                solvers.map((solver, i) => <option value={solver} key={i}>{solver}</option>)
                             }
                         </select>
                         <h6>Flags</h6>
@@ -149,128 +152,4 @@ export default class NewRunPage extends React.Component {
     }
 }
 
-
-// Create a new component that will produce some HTML where a user can choose multiple Solver from a dropdown and also give a text input for some flags to set.
-
-
-// const NewRunPagex = () => {
-//     const [inputFields, setInputField] = useState([
-//         {id:uuidv4(),solver:'', flag:''},
-//     ]);
-
-//     const [models, setModels] = useState([
-        // {
-        //     key: 2132,
-        //     name: "solveExam",
-        //     size: 13132}, 
-        // {
-        //     key: 2133,
-        //     name: "solveExam1",
-        //     size: 13133,
-        // }
-//     ]);
-
-//     const [data, setData] = useState([
-//         {
-//             key: 2132,
-//             name: "data",
-//             size: 13132}, 
-//         {
-//             key: 2133,
-//             name: "data1",
-//             size: 13133,
-//         }
-//     ]);
-  
-
-//     const setSolver = (id, e) => {
-//         e.preventDefault();
-//         const newInputFields = inputFields.map(i => {
-//             if(id === i.id) {
-//               i[e.target.solver] = e.target.value
-//             }
-//             return i;
-//           })
-          
-//           setInputField(newInputFields);
-
-//         }
-
-//     const setFlags= (id, e) => {
-//         e.preventDefault();
-//         const newInputFields = inputFields.map(i => {
-//             if(id === i.id) {
-//               i[e.target.flag] = e.target.value
-//             }
-//             return i;
-//           })
-              
-//           setInputField(newInputFields);
-    
-//         }
-
-
-//     const handleSubmit = (event) => {
-//         event.preventDefault();
-//         console.log(inputFields.solver, inputFields.flag);
-//     }
-//     const removeFields = (id) => {
-//         const list  = [...inputFields];
-//         list.splice(list.findIndex(v => v.id === id), 1);
-//         setInputField(list);
-//     }
-//     const addFields = () => {
-//         setInputField([...inputFields, {id:uuidv4(),solver:'', flag:''}]);
-//     }
-
-//     return (
-//     <div className="container pt-4">
-//         <form onSubmit={handleSubmit}>
-//             <h1>New run</h1>
-//             <h4>Please choose the model the solvers should work with </h4>
-//             <div className="dropdown">
-//                 <select className="form-select form-select-lg mb-2" aria-label=".form-select-lg example" style={{ width: '40%' }}>
-//                     {this.state.models.map(model => (
-//                         <option value={model.name}>{model.name}</option>
-//                     ))}
-//                 </select>
-//             </div>
-//             <h4>Please choose the data the solvers should work with </h4>
-//             <div className="dropdown">
-//                 <select className="form-select form-select-lg mb-2" aria-label=".form-select-lg example" style={{ width: '40%' }}>
-//                     {this.state.data.map(data => (
-//                         <option value={data.name}>{data.name}</option>
-//                     ))}
-//                 </select>
-//             </div>
-//             <br></br>
-//             {[].map(inputField => (
-//                 <div key={inputField.id}>
-//                     <label>
-//                         <h5>Choose solver:</h5>
-//                         <select className="form-select form-select-lg mb-2" aria-label=".form-select-lg example" id="solver" value={inputFields.solver} onChange={e => setSolver(inputField.id, e)}>
-//                             <option value="">Select solver</option>
-//                             <option value="solver1">Solver 1</option>
-//                             <option value="solver2">Solver 2</option>
-//                             <option value="solver3">Solver 3</option>
-//                         </select>
-//                     </label>
-//                     <label>
-//                         Set flags:
-//                         <input id="flags" value={inputFields.flags} onChange={e => setFlags(inputField.id, e)} />
-//                     </label>
-//                     <label>
-//                         <i className="bi bi-plus" onClick={addFields}></i>
-//                         <i className="bi bi-x" onClick={() => removeFields(inputField.id)}></i>
-//                     </label>
-
-//                 </div>
-
-//             ), this)}
-//             <input type="submit" value="Submit" />
-//         </form>
-//     </div>
-//     );
-// }
-
-// // export default NewRunPage;
+export default withRouter(NewRunPage);

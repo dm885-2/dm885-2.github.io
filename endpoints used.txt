@@ -1,4 +1,4 @@
-POST /run
+POST /run -- Adds a run to the DB
 BODY:
     {
         model: Number,
@@ -15,3 +15,8 @@ RESPONSE:
         error: Boolean
     }
 
+GET /model - Gets all models-metadata
+GET /model/:id - Gets the model
+
+GET /data -- Gets all data-metadata
+GET /data/:id -- Gets the data

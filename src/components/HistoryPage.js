@@ -23,6 +23,7 @@ export default class HistoryPage extends React.Component {
     
     render()
     {
+        console.log("Hey");
         return (
             //Move table to only  tage 2/3 of the left part of the page
             <div className="container pt-4">
@@ -88,9 +89,11 @@ export default class HistoryPage extends React.Component {
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" className="btn btn-primary mt-1 w-100">
-                        Create new Data!
-                    </button>
+                    <Link to="/model/new">
+                        <button type="button" className="btn btn-primary mt-1 w-100">
+                            Create new model!
+                        </button>
+                    </Link>
                 </div>
                     
                 <div className="col-md-6">
@@ -121,9 +124,11 @@ export default class HistoryPage extends React.Component {
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" className="btn btn-primary mt-1 w-100">
-                        Create new Data!
-                    </button>
+                    <Link to="/data/new">
+                        <button type="button" className="btn btn-primary mt-1 w-100">
+                            Create new dataset!
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>
