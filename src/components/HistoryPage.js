@@ -8,7 +8,7 @@ export default class HistoryPage extends React.Component {
         history: [{
             status: 1,
             timestamp: 1637064108663,
-            key: 1,
+            id: 1,
         }],
         models: [{
             key: 2132,
@@ -51,6 +51,15 @@ export default class HistoryPage extends React.Component {
      */
     getData()
     {
+        API.call("GET", "/run").then(resp => {
+            if(resp && !resp.error)
+            {
+                this.setState({
+                    history: resp.data,
+                });
+            }
+        });
+        
         API.call("GET", "/model").then(resp => {
             if(resp && !resp.error)
             {
@@ -89,8 +98,8 @@ export default class HistoryPage extends React.Component {
                                 </thead>
                                 <tbody>
                                     {this.state.history.map(history => (
-                                        <tr key={history.key}>
-                                            <td>{history.key}</td>
+                                        <tr key={history.id}>
+                                            <td>{history.id}</td>
                                             <td>{new Date(history.timestamp).toLocaleString()}</td>
                                             <td>{history.status === 0 ? "Closed" : "Open"}</td>
                                         </tr>
