@@ -5,6 +5,7 @@ import LoginPage from "./components/LoginPage";
 import HistoryPage from "./components/HistoryPage";
 import NewRunPage from "./components/NewRunPage";
 import EditModelPage from "./components/EditModelPage";
+import EditDataPage from "./components/EditDataPage";
 
 import {API} from "./helpers";
 
@@ -30,6 +31,9 @@ export default function App()
               </Route>
               <Route path="/model/:id">
                 <EditModelPage/>
+              </Route>
+              <Route path="/data/:id">
+                <EditDataPage/>
               </Route>
               <Route path="*">
                 <HistoryPage />

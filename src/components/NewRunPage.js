@@ -81,7 +81,7 @@ class NewRunPage extends React.Component {
             if(resp && !resp.error)
             {
                 alert("Your run has been saved!");
-                this.props.navigate("/");
+                this.props.history.push("/");
             }else{
                 alert("Something went wrong, try again.");
             }
@@ -146,8 +146,8 @@ class NewRunPage extends React.Component {
                         </div>
                     </div>)
                     }
-                <button onClick={() => this.save()}>Save</button>
-                <button onClick={() => this.addSolver()}>New solver</button>
+                <button onClick={() => this.save()} className="btn btn-primary mt-2">Save</button>
+                <button onClick={() => this.addSolver()} className="btn btn-secondary mt-2">New solver</button>
             </div>);
     }
 }

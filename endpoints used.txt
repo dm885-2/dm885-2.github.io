@@ -15,8 +15,80 @@ RESPONSE:
         error: Boolean
     }
 
-GET /model - Gets all models-metadata
-GET /model/:id - Gets the model
+MODEL:
 
-GET /data -- Gets all data-metadata
-GET /data/:id -- Gets the data
+GET /model - Gets all models-metadata
+[{
+    name: string,
+    id: number,
+}]
+
+
+GET /model/:id - Gets the model
+{
+    name: string,
+    content: string,
+    id: number,
+}
+
+
+POST /model - Adds the given model
+{
+    name: string,
+    content: string,
+}
+RESPONSE:
+{
+    error: Boolean
+}
+
+
+PUT /model/:id - Updates the given model
+{
+    name: string,
+    content: string,
+}
+RESPONSE:
+{
+    error: Boolean
+}
+
+
+
+DATA:
+
+GET /data - Gets all datas-metadata
+[{
+    name: string,
+    id: number,
+}]
+
+
+GET /data/:id - Gets the data
+{
+    name: string,
+    content: string,
+    id: number,
+}
+
+
+POST /data - Adds the given data
+{
+    name: string,
+    content: string,
+}
+RESPONSE:
+{
+    error: Boolean
+}
+
+
+PUT /data/:id - Updates the given data
+{
+    name: string,
+    content: string,
+}
+RESPONSE:
+{
+    error: Boolean
+}
