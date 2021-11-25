@@ -52,3 +52,5 @@ export class API {
         }
     }
 }
+
+export const solvers = ["Gecode", "OR-tool"];

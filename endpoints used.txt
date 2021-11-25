@@ -1,0 +1,17 @@
+POST /run
+BODY:
+    {
+        model: Number,
+        dataset: Number,
+        solvers: [{
+            solver: String,
+            flagA: Boolean,
+            flagF: Boolean,
+            flagP: Number,
+        }],
+    }
+RESPONSE:
+    {
+        error: Boolean
+    }
+

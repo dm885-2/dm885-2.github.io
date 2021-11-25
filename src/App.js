@@ -1,5 +1,5 @@
-import React from "react";
-import {HashRouter, Routes, Route} from "react-router-dom";
+import React, {useState} from "react";
+import {HashRouter as Router, Routes, Route, useNavigate} from "react-router-dom";
 
 import LoginPage from "./components/LoginPage";
 import HistoryPage from "./components/HistoryPage";
@@ -7,36 +7,41 @@ import NewRunPage from "./components/NewRunPage";
 
 import {API} from "./helpers";
 
-export default class App extends React.Component {
-  state = {
-    authToken: false,
-  };
+const withNavigate = WrappedComponent => (props = {}) => {
+  const navigate = useNavigate();
+
+  return <WrappedComponent {...props} navigate={navigate} />;
+};
+
+export default function App()
+{
+  return (<Router>
+              <AllRoutes/>
+        </Router>);
+}
+
+function AllRoutes()
+{
+  const [authToken, setAuthTokenState] = useState(true);
 
   /**
    * Sets the AuthToken.
    * @param string token the authToken
    */
-  setAuthtoken(token)
-  {
+  const setAuthToken = (token) => {
     API.authToken = token;
-    this.setState({
-      authToken: token
-    });
-  }
-
-  render()
-  {
-    return (<HashRouter>
+    setAuthTokenState(token);
+  };
+  return (<>
     {
-      this.state.authToken ?
-      <Routes>
-        <Route path="/" element={<HistoryPage />}/>
-        <Route path="/newRun" element={<NewRunPage />}/>
-      </Routes>
-      : <Routes>
-        <Route path="*" element={<LoginPage setAuthtoken={t => this.setAuthtoken(t)} />}/>
-      </Routes>
-    }
-</HashRouter>);
-  }
+        authToken ?
+        <Routes>
+          <Route path="/" element={<HistoryPage />}/>
+          <Route path="/newRun" element={withNavigate(NewRunPage)({})}/>
+        </Routes>
+        : <Routes>
+          <Route path="*" element={<LoginPage setAuthtoken={t => setAuthToken(t)} />}/>
+        </Routes>
+      }
+  </>);
 }
