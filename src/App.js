@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {HashRouter as Router, Switch, Route} from "react-router-dom";
 
 import LoginPage from "./components/LoginPage";
+import SignUpPage from "./components/SignUpPage";
 import HistoryPage from "./components/HistoryPage";
 import NewRunPage from "./components/NewRunPage";
 import EditModelPage from "./components/EditModelPage";
@@ -40,6 +41,9 @@ export default function App()
               </Route>
             </Switch>
             : <Switch>
+              <Route path="/signup">
+                <SignUpPage />
+              </Route>
               <Route path="*">
                 <LoginPage setAuthtoken={t => setAuthToken(t)} />
               </Route>

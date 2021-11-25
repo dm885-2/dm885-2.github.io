@@ -1,10 +1,12 @@
 import React from "react";
+import {withRouter} from "react-router";
+import {Link} from "react-router-dom";
 
 import Spinner from "./UI/Spinner";
 
 import {API} from "../helpers";
 
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
     state = {
         loading: false,
     };
@@ -30,6 +32,7 @@ export default class LoginPage extends React.Component {
         const data = await API.call("POST", "auth/login", values);
         if((data && !data.error) || 1) // TODO: remove after servercheck
         {
+            this.props.history.push("/");
             this.props.setAuthtoken(data.accessToken ?? 1); // TODO: remove after servercheck
         }else{
             this.setState({
@@ -49,7 +52,10 @@ export default class LoginPage extends React.Component {
                 <button className="btn btn-primary mt-3">
                     Sign in
                 </button>
+                <Link to="/signup">New user</Link>
             </form>
         </div>);
     }
 }
+
+export default withRouter(LoginPage);
