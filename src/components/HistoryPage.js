@@ -1,6 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
+import {API} from "../helpers";
+
 export default class HistoryPage extends React.Component {
     state = {
         history: [{
@@ -20,10 +22,32 @@ export default class HistoryPage extends React.Component {
             size: 13132,
         }]
     };
+
+    componentDidMount()
+    {
+        this.getData();
+    }
+
+    async delete(type, id)
+    {
+        const check = window.confirm("Are you sure you want to delete it?");
+        if(check)
+        {
+            const data = await API.call("DELETE", `/${type}/${id}`);
+            if(data)
+            {
+                this.getData();
+            }
+        }
+    }
+
+    getData()
+    {
+
+    }
     
     render()
     {
-        console.log("Hey");
         return (
             //Move table to only  tage 2/3 of the left part of the page
             <div className="container pt-4">
@@ -73,13 +97,13 @@ export default class HistoryPage extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.models.map(models => (
-                                    <tr key={models.key}>
-                                        <td>{models.key}</td>
-                                        <td>{(models.name)}</td>
-                                        <td>{models.size}</td>
+                                {this.state.models.map(model => (
+                                    <tr key={model.id}>
+                                        <td>{model.id}</td>
+                                        <td>{(model.name)}</td>
+                                        <td>{model.size}</td>
                                         <td>
-                                            <i className="bi bi-trash"></i>
+                                            <i onClick={() => this.delete("model", model.id)} role="button" className="bi bi-trash"></i>
                                         </td>
                                         <td>
                                             <i className="bi bi-cloud-arrow-up"></i>    
@@ -109,12 +133,12 @@ export default class HistoryPage extends React.Component {
                             </thead>
                             <tbody>
                                 {this.state.data.map(data => (
-                                    <tr key={data.key}>
-                                        <td>{data.key}</td>
+                                    <tr key={data.id}>
+                                        <td>{data.id}</td>
                                         <td>{data.name}</td>
                                         <td>{data.size}</td>
                                         <td>
-                                            <i className="bi bi-trash"></i>
+                                            <i onClick={() => this.delete("data", data.id)} role="button" className="bi bi-trash"></i>
                                         </td>
                                         <td>
                                             <i className="bi bi-cloud-arrow-up"></i>    

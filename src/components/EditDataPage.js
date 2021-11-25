@@ -1,9 +1,8 @@
 import React from "react";
 import {withRouter} from "react-router";
 
-import {API, solvers} from "../helpers";
+import {API} from "../helpers";
 
-// Create a new component that will produce some HTML where a user can choose multiple Solver from a dropdown and also give a text input for some flags to set.
 class EditDataPage extends React.Component {
 
     state = {

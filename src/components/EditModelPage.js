@@ -1,9 +1,8 @@
 import React from "react";
 import {withRouter} from "react-router";
 
-import {API, solvers} from "../helpers";
+import {API} from "../helpers";
 
-// Create a new component that will produce some HTML where a user can choose multiple Solver from a dropdown and also give a text input for some flags to set.
 class EditModelPage extends React.Component {
 
     state = {
@@ -49,7 +48,7 @@ class EditModelPage extends React.Component {
             const IS_EDITING = this.props.match.params.id !== "new";
             const route = IS_EDITING ? "/model/" + this.props.match.params.id : "/model";
             const method = IS_EDITING ? "PUT" : "POST";
-            
+
             const data = await API.call(method, route, inputData);
             if(data && !data.error)
             {

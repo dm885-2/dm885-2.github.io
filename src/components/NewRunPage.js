@@ -13,29 +13,39 @@ class NewRunPage extends React.Component {
     };
 
     state = {
-        models: [{
-            key: 2132,
-            name: "solveExam",
-            size: 13132
-        },{
-            key: 2133,
-            name: "solveExam1",
-            size: 13133,
-        }],
-        data: [{
-            key: 2132,
-            name: "data",
-            size: 13132
-        },{
-            key: 2133,
-            name: "data1",
-            size: 13133,
-        }],
+        models: [],
+        data: [],
 
         currentModel: 0,
         currentDataset: 0,
         solvers: [],
     };
+
+    componentDidMount()
+    {
+        this.getData();
+    }
+
+    getData()
+    {
+        API.call("GET", "/model").then(resp => {
+            if(resp && !resp.error)
+            {
+                this.setState({
+                    models: resp.data,
+                });
+            }
+        });
+
+        API.call("GET", "/data").then(resp => {
+            if(resp && !resp.error)
+            {
+                this.setState({
+                    data: resp.data,
+                });
+            }
+        });
+    }
 
     updateSolver(key, value, i)
     {
@@ -97,7 +107,7 @@ class NewRunPage extends React.Component {
                         <select className="form-select form-select-lg mb-2" onChange={(e) => this.setState({currentModel: Number(e.target.value)})} defaultValue={this.state.currentModel} aria-label=".form-select-lg" style={{ width: '40%' }}>
                             <option value="0">Choose a model</option>
                             {this.state.models.map(model => (
-                                <option value={model.key} key={model.key}>{model.name}</option>
+                                <option value={model.id} key={model.id}>{model.name}</option>
                             ))}
                         </select>
                     </div>
@@ -106,7 +116,7 @@ class NewRunPage extends React.Component {
                         <select className="form-select form-select-lg mb-2" onChange={(e) => this.setState({currentDataset: Number(e.target.value)})} defaultValue={this.state.currentDataset} aria-label=".form-select-lg" style={{ width: '40%' }}>
                             <option value="0">Choose a dataset</option>
                             {this.state.data.map(data => (
-                                <option value={data.key} key={data.key}>{data.name}</option>
+                                <option value={data.id} key={data.id}>{data.name}</option>
                             ))}
                         </select>
                     </div>

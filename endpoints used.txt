@@ -18,12 +18,15 @@ RESPONSE:
 MODEL:
 
 GET /model - Gets all models-metadata
-[{
-    name: string,
-    id: number,
-}]
+{
+    data: [{
+        name: string,
+        id: number,
+    }]
+}
 
 
+DELETE /model/:id - Deletes the model
 GET /model/:id - Gets the model
 {
     name: string,
@@ -58,12 +61,15 @@ RESPONSE:
 DATA:
 
 GET /data - Gets all datas-metadata
-[{
-    name: string,
-    id: number,
-}]
+{
+    data: [{
+        name: string,
+        id: number,
+    }]
+}
 
 
+DELETE /data/:id - Deletes the data
 GET /data/:id - Gets the data
 {
     name: string,
