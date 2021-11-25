@@ -4,7 +4,6 @@ import {withRouter} from "react-router";
 import {API} from "../helpers";
 
 class EditModelPage extends React.Component {
-
     state = {
         name: "",
         content: "",
@@ -24,9 +23,10 @@ class EditModelPage extends React.Component {
             }
         }
     }
-
   
-
+    /**
+     * Validates, and saves the form data.
+     */
     async save(e)
     {
         e.preventDefault();

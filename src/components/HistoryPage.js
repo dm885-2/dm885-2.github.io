@@ -28,6 +28,11 @@ export default class HistoryPage extends React.Component {
         this.getData();
     }
 
+    /**
+     * Makes a DELETE call for the given type and id.
+     * @param {*} type 
+     * @param {*} id 
+     */
     async delete(type, id)
     {
         const check = window.confirm("Are you sure you want to delete it?");
@@ -41,9 +46,28 @@ export default class HistoryPage extends React.Component {
         }
     }
 
+    /**
+     * Gets the data and model data.
+     */
     getData()
     {
+        API.call("GET", "/model").then(resp => {
+            if(resp && !resp.error)
+            {
+                this.setState({
+                    models: resp.data,
+                });
+            }
+        });
 
+        API.call("GET", "/data").then(resp => {
+            if(resp && !resp.error)
+            {
+                this.setState({
+                    data: resp.data,
+                });
+            }
+        });
     }
     
     render()
@@ -103,6 +127,11 @@ export default class HistoryPage extends React.Component {
                                         <td>{(model.name)}</td>
                                         <td>{model.size}</td>
                                         <td>
+                                            <Link to={`/model/${model.id}`}>
+                                                <i className="bi bi-pencil-square"/>
+                                            </Link>
+                                        </td>
+                                        <td>
                                             <i onClick={() => this.delete("model", model.id)} role="button" className="bi bi-trash"></i>
                                         </td>
                                         <td>
@@ -138,10 +167,15 @@ export default class HistoryPage extends React.Component {
                                         <td>{data.name}</td>
                                         <td>{data.size}</td>
                                         <td>
-                                            <i onClick={() => this.delete("data", data.id)} role="button" className="bi bi-trash"></i>
+                                            <Link to={`/data/${data.id}`}>
+                                                <i className="bi bi-pencil-square"/>
+                                            </Link>
                                         </td>
                                         <td>
-                                            <i className="bi bi-cloud-arrow-up"></i>    
+                                            <i onClick={() => this.delete("data", data.id)} role="button" className="bi bi-trash"/>
+                                        </td>
+                                        <td>
+                                            <i className="bi bi-cloud-arrow-up"/>
                                         </td>
                                     </tr>
                                 ))}

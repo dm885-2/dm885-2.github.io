@@ -26,6 +26,9 @@ class NewRunPage extends React.Component {
         this.getData();
     }
 
+    /**
+     * Gets the data and model data.
+     */
     getData()
     {
         API.call("GET", "/model").then(resp => {
@@ -47,6 +50,12 @@ class NewRunPage extends React.Component {
         });
     }
 
+    /**
+     * Updates the given attribute on the given solver.
+     * @param String key 
+     * @param String value 
+     * @param Number i 
+     */
     updateSolver(key, value, i)
     {
         const solvers = [...this.state.solvers];
@@ -58,6 +67,9 @@ class NewRunPage extends React.Component {
         });
     }
 
+    /**
+     * Adds a blank solver to the state.
+     */
     addSolver()
     {
         this.setState({
@@ -70,6 +82,9 @@ class NewRunPage extends React.Component {
         });
     }
 
+    /**
+     * Validates, and saves the form data.
+     */
     async save()
     {
         const data = {

@@ -24,9 +24,10 @@ class EditDataPage extends React.Component {
             }
         }
     }
-
   
-
+    /**
+     * Validates, and saves the form data.
+     */
     async save(e)
     {
         e.preventDefault();
