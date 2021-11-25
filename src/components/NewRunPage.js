@@ -171,8 +171,10 @@ class NewRunPage extends React.Component {
                         </div>
                     </div>)
                     }
-                <button onClick={() => this.save()} className="btn btn-primary mt-2">Save</button>
-                <button onClick={() => this.addSolver()} className="btn btn-secondary mt-2">New solver</button>
+                <div class="btn-group mr-2" role="group">
+                    <button onClick={() => this.save()} className="btn btn-primary mt-2">Save</button>
+                    <button onClick={() => this.addSolver()} className="btn btn-secondary mt-2">New solver</button>
+                </div>
             </div>);
     }
 }

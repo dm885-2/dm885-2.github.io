@@ -1,9 +1,10 @@
 import React from "react";
 import {withRouter} from "react-router";
+import {Link} from "react-router-dom";
 
 import Spinner from "./UI/Spinner";
 
-import {API} from "../helpers";
+import {API, getInputValues} from "../helpers";
 
 class SignUpPage extends React.Component {
     state = {
@@ -20,13 +21,7 @@ class SignUpPage extends React.Component {
         this.setState({
             loading: true,
         });
-        const userInput = [...e.target.elements].reduce((obj, curr) => {
-            if(curr.name)
-            {
-                obj[curr.name] = curr.value;
-            }
-            return obj;
-        }, {});
+        const userInput = getInputValues(e.target.elements);
         
         if(userInput.username.length === 0)
         {
@@ -65,6 +60,9 @@ class SignUpPage extends React.Component {
                 <button className="btn btn-primary mt-3">
                     Create account
                 </button>
+                <div className="d-flex justify-content-center pt-2">
+                    <Link to="/">Go back</Link>
+                </div>
             </form>
         </div>);
     }

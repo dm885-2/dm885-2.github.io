@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 import Spinner from "./UI/Spinner";
 
-import {API} from "../helpers";
+import {API, getInputValues} from "../helpers";
 
 class LoginPage extends React.Component {
     state = {
@@ -21,13 +21,7 @@ class LoginPage extends React.Component {
         this.setState({
             loading: true,
         });
-        const values = [...e.target.elements].reduce((obj, curr) => {
-            if(curr.name)
-            {
-                obj[curr.name] = curr.value;
-            }
-            return obj;
-        }, {});
+        const values = getInputValues(e.target.elements);
 
         const data = await API.call("POST", "auth/login", values);
         if((data && !data.error) || 1) // TODO: remove after servercheck
@@ -52,7 +46,9 @@ class LoginPage extends React.Component {
                 <button className="btn btn-primary mt-3">
                     Sign in
                 </button>
-                <Link to="/signup">New user</Link>
+                <div className="d-flex justify-content-center pt-2">
+                    <Link to="/signup">New user</Link>
+                </div>
             </form>
         </div>);
     }

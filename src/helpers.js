@@ -10,6 +10,17 @@ export function api(method = "GET", endpoint, data, token = false){
     });
 }
 
+export function getInputValues(elements)
+{
+    return [...elements].reduce((obj, curr) => {
+        if(curr.name)
+        {
+            obj[curr.name] = curr.value;
+        }
+        return obj;
+    }, {});
+}
+
 export class API {
     static authToken = false;
     static refreshToken = false;

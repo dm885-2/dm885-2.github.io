@@ -12,7 +12,7 @@ import {API} from "./helpers";
 
 export default function App()
 {
-  const [authToken, setAuthTokenState] = useState(false);
+  const [authToken, setAuthTokenState] = useState(true);
 
   /**
    * Sets the AuthToken.

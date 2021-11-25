@@ -127,7 +127,7 @@ export default class HistoryPage extends React.Component {
                                         <td>{(model.name)}</td>
                                         <td>{model.size}</td>
                                         <td>
-                                            <Link to={`/model/${model.id}`}>
+                                            <Link to={`/model/${model.id}`} className="text-dark">
                                                 <i className="bi bi-pencil-square"/>
                                             </Link>
                                         </td>
@@ -167,7 +167,7 @@ export default class HistoryPage extends React.Component {
                                         <td>{data.name}</td>
                                         <td>{data.size}</td>
                                         <td>
-                                            <Link to={`/data/${data.id}`}>
+                                            <Link to={`/data/${data.id}`} className="text-dark">
                                                 <i className="bi bi-pencil-square"/>
                                             </Link>
                                         </td>

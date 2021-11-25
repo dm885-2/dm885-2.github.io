@@ -1,7 +1,7 @@
 import React from "react";
 import {withRouter} from "react-router";
 
-import {API} from "../helpers";
+import {API, getInputValues} from "../helpers";
 
 class EditModelPage extends React.Component {
     state = {
@@ -30,13 +30,7 @@ class EditModelPage extends React.Component {
     async save(e)
     {
         e.preventDefault();
-        const inputData = [...e.target.elements].reduce((obj, curr) => {
-            if(curr.name)
-            {
-                obj[curr.name] = curr.value;
-            }
-            return obj;
-        }, {});
+        const inputData = getInputValues(e.target.elements);
 
         if(inputData.name.length === 0)
         {
