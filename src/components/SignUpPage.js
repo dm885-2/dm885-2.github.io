@@ -32,7 +32,7 @@ class SignUpPage extends React.Component {
             this.setState({
                 loading: true,
             });
-            const data = await API.call("POST", "auth/signup", userInput);
+            const data = await API.call("POST", "auth/register", userInput);
             this.setState({
                 loading: false,
             });

@@ -29,7 +29,10 @@ export class API {
     {
        return fetch(`http://${IP}/${endpoint}`, {
             method,
-            headers,
+            headers: {
+                ...headers,
+                "Content-Type": "application/json",
+            },
             body: body ? JSON.stringify(body) : undefined,
         })
         .then(d => d.json())
