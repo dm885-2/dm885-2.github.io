@@ -95,9 +95,6 @@ class NewRunPage extends React.Component {
         if(data.model === 0)
         {
             alert("A valid model needs to be choosen");
-        }else if(data.dataset === 0)
-        {
-            alert("A valid dataset needs to be choosen");
         }else if(data.solvers.length === 0)
         {
             alert("You need atleast one solver");
@@ -135,7 +132,20 @@ class NewRunPage extends React.Component {
                             ))}
                         </select>
                     </div>
-                    
+
+
+                    <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1"></input>
+                    <label class="custom-control-label" for="customCheck1"> Parallel run</label>
+                    </div>
+
+                    <div className="col-sm-4">
+                        <label htmlFor="timeLimit">Time limit in seconds</label>
+                    </div>
+                    <div className="col-sm-8">
+                        <input type="number" id="timeLim" name="timeLim"/>
+                    </div>
+
                     {
                         this.state.solvers.map((solver, key) => <div className="pt-4 pb-4 border-top" key={key}>
                         <label htmlFor="solver">
