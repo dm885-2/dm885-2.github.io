@@ -14,8 +14,8 @@ import {API} from "./helpers";
 
 export default function App()
 {
-  const [authToken, setAuthTokenState] = useState(true);
-  const [userRank, setuserRankState] = useState(1);
+  const [authToken, setAuthTokenState] = useState(false);
+  const [userRank, setUserRank] = useState(1);
 
   /**
    * Sets the AuthToken.
@@ -86,7 +86,10 @@ export default function App()
                 <SignUpPage />
               </Route>
               <Route path="*">
-                <LoginPage setAuthtoken={t => setAuthToken(t)} />
+                <LoginPage setAuthtoken={(t, rank = 0) => {
+                  setUserRank(rank);
+                  setAuthToken(t);
+                }} />
               </Route>
             </Switch>
       }

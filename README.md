@@ -208,6 +208,7 @@ Response:
 {
     error: Boolean,
     accessToken?: String,
+    userRank?: Number,
 }
 ```
 
