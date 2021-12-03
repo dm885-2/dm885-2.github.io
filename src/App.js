@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import {HashRouter as Router, Switch, Route, Link} from "react-router-dom";
 
 import LoginPage from "./components/LoginPage";
+import UserListPage from "./components/UserListPage";
+import SolversPage from "./components/SolversPage";
 import SignUpPage from "./components/SignUpPage";
 import HistoryPage from "./components/HistoryPage";
 import NewRunPage from "./components/NewRunPage";
@@ -29,22 +31,22 @@ export default function App()
           authToken ?
             <>
               {
-                userRank > 0 && <nav class="container-fluid navbar navbar-expand-lg navbar-light bg-light">
-                  <Link class="navbar-brand" to="/">Minisinc</Link>
+                userRank > 0 && <nav className="container-fluid navbar navbar-expand-lg navbar-light bg-light">
+                  <Link className="navbar-brand" to="/">Minisinc</Link>
 
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                   </button>
-                  <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                      <li class="nav-item active">
-                        <Link class="nav-link" to="/">Jobs</Link>
+                  <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                      <li className="nav-item active">
+                        <Link className="nav-link" to="/">Jobs</Link>
                       </li>
-                      <li class="nav-item">
-                        <Link class="nav-link" to="/users">Users</Link>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/users">Users</Link>
                       </li>
-                      <li class="nav-item">
-                        <Link class="nav-link" to="/solvers">Solvers</Link>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/solvers">Solvers</Link>
                       </li>
                     </ul>
                   </div>
@@ -52,13 +54,26 @@ export default function App()
               }
 
               <Switch>
-              <Route path="/newRun">
+              <Route path="/" exact={true}>
+                <HistoryPage />
+              </Route>
+              <Route exact={true} path="/newRun">
                 <NewRunPage/>
               </Route>
-              <Route path="/model/:id">
+              {
+                userRank > 0 && <>
+                  <Route exact={true} path="/users">
+                    <UserListPage/>
+                  </Route>
+                  <Route exact={true} path="/solvers">
+                    <SolversPage/>
+                  </Route>
+                </>
+              }
+              <Route exact={true} path="/model/:id">
                 <EditModelPage/>
               </Route>
-              <Route path="/data/:id">
+              <Route exact={true} path="/data/:id">
                 <EditDataPage/>
               </Route>
               <Route path="*">

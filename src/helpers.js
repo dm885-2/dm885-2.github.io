@@ -30,8 +30,8 @@ export class API {
        return fetch(`http://${IP}/${endpoint}`, {
             method,
             headers: {
-                ...headers,
                 "Content-Type": "application/json",
+                ...headers,
             },
             body: body ? JSON.stringify(body) : undefined,
         })
@@ -39,10 +39,11 @@ export class API {
         .catch(_ => false);
     }
 
-    static async call(method = "GET", endpoint, body = {})
+    static async call(method = "GET", endpoint, body = {}, headers = {})
     {
         const data = await API.rawCall(method, endpoint, {
             Authorization: API.authToken ?? undefined,
+            ...headers,
         }, body);
         if(!data && API.refreshToken) // Auth token expired, refresh it and retry
         {

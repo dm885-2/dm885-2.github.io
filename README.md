@@ -142,6 +142,57 @@ Response:
 }
 ```
 
+
+### Solvers
+#### GET `/solvers` - Gets all solvers-metadata
+Response:
+```
+{
+    data: [{
+        name: string,
+        id: number,
+    }]
+}
+```
+
+#### POST `/solvers` - Adds the given solver
+Body:
+```
+{
+    name: string,
+}
+```
+Response:
+```
+{
+    error: Boolean
+}
+```
+#### PUT `/solvers/:id` - Updates the given solver
+Body:
+```
+{
+    name: string,
+}
+```
+Response:
+```
+{
+    error: Boolean
+}
+```
+#### PUT `/solvers/:id/image` - Uploads the given solvers image
+
+Response:
+```
+{
+    error: Boolean
+}
+```
+
+#### DELETE `/solvers/:id` - Deletes the solver
+
+
 ### Authentication
 
 #### POST `/auth/login` - Signs in the user
