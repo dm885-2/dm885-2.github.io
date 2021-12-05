@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import {withRouter} from "react-router";
 import {API} from "../helpers";
 
@@ -79,7 +78,7 @@ class UserListPage extends React.Component {
                                                 <td> 
                                                     <button className="btn btn-secondary" onClick={() => {
                                                        const enteredLimit = prompt('Set recourse limit for user: ' + user.username, user.recourseLimit);
-                                                       if (this.isInt(enteredLimit) == true){
+                                                       if (this.isInt(enteredLimit) === true){
                                                          API.call("PUT", `/users/${user.id}/recourseLimit/${enteredLimit}`).then(resp => {
                                                                 if(resp && !resp.error)
                                                                 {
