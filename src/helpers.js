@@ -36,7 +36,7 @@ export class API {
             body: body ? JSON.stringify(body) : undefined,
         })
         .then(d => d.json())
-        .catch(_ => false);
+        .catch(e => false);
     }
 
     static async call(method = "GET", endpoint, body = {}, headers = {})
@@ -45,23 +45,24 @@ export class API {
             Authorization: API.authToken ?? undefined,
             ...headers,
         }, body);
+
         if(!data && API.refreshToken) // Auth token expired, refresh it and retry
         {
-            await API.refreshToken();
+            await API.getAccessToken();
             return await api(method, endpoint, data);
         }else{
             return data;
         }
     }
 
-    static async refreshToken()
+    static async getAccessToken()
     {
-        const data = await API.rawCall("GET", "refreshToken", {}, {
-            refreshToken: API.refreshToken,
+        const data = await API.rawCall("POST", "auth/accessToken", {}, {
+            token: API.refreshToken,
         });
         if(data)
         {
-            API.refreshToken = data.token;
+            API.accessToken = data.token;
         }else{
             API.refreshToken = false;
         }

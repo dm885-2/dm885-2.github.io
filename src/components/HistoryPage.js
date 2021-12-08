@@ -38,7 +38,7 @@ export default class HistoryPage extends React.Component {
         const check = window.confirm("Are you sure you want to delete it?");
         if(check)
         {
-            const data = await API.call("DELETE", `/${type}/${id}`);
+            const data = await API.call("DELETE", `${type}/${id}`);
             if(data)
             {
                 this.getData();
@@ -51,7 +51,7 @@ export default class HistoryPage extends React.Component {
      */
     getData()
     {
-        API.call("GET", "/run").then(resp => {
+        API.call("GET", "run").then(resp => {
             if(resp && !resp.error)
             {
                 this.setState({
@@ -60,7 +60,7 @@ export default class HistoryPage extends React.Component {
             }
         });
         
-        API.call("GET", "/model").then(resp => {
+        API.call("GET", "model").then(resp => {
             if(resp && !resp.error)
             {
                 this.setState({
@@ -69,7 +69,7 @@ export default class HistoryPage extends React.Component {
             }
         });
 
-        API.call("GET", "/data").then(resp => {
+        API.call("GET", "data").then(resp => {
             if(resp && !resp.error)
             {
                 this.setState({

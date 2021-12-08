@@ -27,7 +27,7 @@ class LoginPage extends React.Component {
         if((data && !data.error))
         {
             this.props.history.push("/");
-            this.props.setAuthtoken(data.accessToken, data.userRank);
+            this.props.setRefreshToken(data.refreshToken, data.userRank);
         }else{
             alert("Wrong username, or password.");
             this.setState({

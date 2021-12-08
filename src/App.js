@@ -14,21 +14,21 @@ import {API} from "./helpers";
 
 export default function App()
 {
-  const [authToken, setAuthTokenState] = useState(false);
+  const [refreshToken, setRefreshTokenState] = useState(false);
   const [userRank, setUserRank] = useState(1);
 
   /**
-   * Sets the AuthToken.
+   * Sets the RefreshToken.
    * @param string token the authToken
    */
-  const setAuthToken = (token) => {
-    API.authToken = token;
-    setAuthTokenState(token);
+  const setRefreshToken = (token) => {
+    API.refreshToken = token;
+    setRefreshTokenState(token);
   };
 
   return (<Router>
         {
-          authToken ?
+          refreshToken ?
             <>
               {
                 userRank > 0 && <nav className="container-fluid navbar navbar-expand-lg navbar-light bg-light">
@@ -86,9 +86,9 @@ export default function App()
                 <SignUpPage />
               </Route>
               <Route path="*">
-                <LoginPage setAuthtoken={(t, rank = 0) => {
+                <LoginPage setRefreshToken={(t, rank = 0) => {
                   setUserRank(rank);
-                  setAuthToken(t);
+                  setRefreshToken(t);
                 }} />
               </Route>
             </Switch>
