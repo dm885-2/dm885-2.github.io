@@ -35,7 +35,7 @@ export class API {
             },
             body: body ? JSON.stringify(body) : undefined,
         })
-        .then(d => d.json())
+        .then(d => d.status === 404 ? {error: true} : d.json()) // Dont try to refresh accessToken on 404
         .catch(e => false);
     }
 
@@ -49,7 +49,7 @@ export class API {
         if(!data && API.refreshToken) // Auth token expired, refresh it and retry
         {
             await API.getAccessToken();
-            return await api(method, endpoint, data);
+            return (await API.call(method, endpoint, data, headers));
         }else{
             return data;
         }
