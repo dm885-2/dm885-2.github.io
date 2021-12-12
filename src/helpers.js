@@ -1,4 +1,4 @@
-const IP = "localhost:8080"; // Gateway IP
+const IP = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "localhost:8080" : "34.88.61.191:80"; // Gateway IP
 
 export function getInputValues(elements)
 {
