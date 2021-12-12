@@ -1,15 +1,5 @@
 const IP = "localhost:8080"; // Gateway IP
 
-export function api(method = "GET", endpoint, data, token = false){
-    return fetch(`http://${IP}/${endpoint}`, {
-        method,
-        headers: {
-            // TODO: Token auth headers
-        },
-        body: data ? JSON.stringify(data) : undefined,
-    });
-}
-
 export function getInputValues(elements)
 {
     return [...elements].reduce((obj, curr) => {
@@ -38,10 +28,21 @@ export class API {
             body: body ? JSON.stringify(body) : undefined,
         })
         .then(d => d.status === 404 ? {error: true} : d.json()) // Dont try to refresh accessToken on 404
-        .catch(e => false);
+        .catch(e => {
+            console.error(`http://${IP}/${endpoint}`, {
+                method,
+                headers: {
+                    "Content-Type": "application/json",
+                    ...headers,
+                    "Authorization": API.accessToken ? `Bearer ${API.accessToken}` : undefined,
+                },
+                body: body ? JSON.stringify(body) : undefined,
+            }, e);
+            return false;
+        });
     }
 
-    static async call(method = "GET", endpoint, body = {}, headers = {})
+    static async call(method = "GET", endpoint, body, headers = {})
     {
         const data = await API.rawCall(method, endpoint, {
             Authorization: API.authToken ?? undefined,
@@ -51,7 +52,7 @@ export class API {
         if(!data && API.refreshToken) // Auth token expired, refresh it and retry
         {
             await API.getAccessToken();
-            return (await API.call(method, endpoint, data, headers));
+            return (await API.call(method, endpoint, body, headers));
         }else{
             return data;
         }

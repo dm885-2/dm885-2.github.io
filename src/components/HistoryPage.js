@@ -47,23 +47,23 @@ export default class HistoryPage extends React.Component {
             }
         });
         
-        // API.call("GET", "files/model").then(resp => {
-        //     if(resp && !resp.error)
-        //     {
-        //         this.setState({
-        //             models: resp.data,
-        //         });
-        //     }
-        // });
+        API.call("GET", "files/all/model").then(resp => {
+            if(resp && !resp.error)
+            {
+                this.setState({
+                    models: resp.results,
+                });
+            }
+        });
         
-        // API.call("GET", "files/data").then(resp => {
-        //     if(resp && !resp.error)
-        //     {
-        //         this.setState({
-        //             data: resp.data,
-        //         });
-        //     }
-        // });
+        API.call("GET", "files/all/data").then(resp => {
+            if(resp && !resp.error)
+            {
+                this.setState({
+                    data: resp.results,
+                });
+            }
+        });
     }
     
     render()
