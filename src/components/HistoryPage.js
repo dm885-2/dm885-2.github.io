@@ -1,26 +1,13 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-import {API} from "../helpers";
+import {API, statuses} from "../helpers";
 
 export default class HistoryPage extends React.Component {
     state = {
-        history: [{
-            status: 1,
-            timestamp: 1637064108663,
-            id: 1,
-        }],
-        models: [{
-            key: 2132,
-            name: "solveExam",
-            size: 13132,
-        }],
-
-        data: [{
-            key: 132,
-            name: "data.dzn",
-            size: 13132,
-        }]
+        history: [],
+        models: [],
+        data: []
     };
 
     componentDidMount()
@@ -51,7 +38,7 @@ export default class HistoryPage extends React.Component {
      */
     getData()
     {
-        API.call("GET", "run").then(resp => {
+        API.call("GET", "jobs").then(resp => {
             if(resp && !resp.error)
             {
                 this.setState({
@@ -60,23 +47,23 @@ export default class HistoryPage extends React.Component {
             }
         });
         
-        API.call("GET", "model").then(resp => {
-            if(resp && !resp.error)
-            {
-                this.setState({
-                    models: resp.data,
-                });
-            }
-        });
-
-        API.call("GET", "data").then(resp => {
-            if(resp && !resp.error)
-            {
-                this.setState({
-                    data: resp.data,
-                });
-            }
-        });
+        // API.call("GET", "files/model").then(resp => {
+        //     if(resp && !resp.error)
+        //     {
+        //         this.setState({
+        //             models: resp.data,
+        //         });
+        //     }
+        // });
+        
+        // API.call("GET", "files/data").then(resp => {
+        //     if(resp && !resp.error)
+        //     {
+        //         this.setState({
+        //             data: resp.data,
+        //         });
+        //     }
+        // });
     }
     
     render()
@@ -101,7 +88,7 @@ export default class HistoryPage extends React.Component {
                                         <tr key={history.id}>
                                             <td>{history.id}</td>
                                             <td>{new Date(history.timestamp).toLocaleString()}</td>
-                                            <td>{history.status === 0 ? "Closed" : "Open"}</td>
+                                            <td>{statuses[history.status]}</td>
                                         </tr>
                                     ))}
                                 </tbody>

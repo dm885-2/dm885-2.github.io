@@ -24,6 +24,7 @@ export function getInputValues(elements)
 export class API {
     static authToken = false;
     static refreshToken = false;
+    static accessToken = false;
 
     static rawCall(method, endpoint, headers = {}, body)
     {
@@ -32,6 +33,7 @@ export class API {
             headers: {
                 "Content-Type": "application/json",
                 ...headers,
+                "Authorization": API.accessToken ? `Bearer ${API.accessToken}` : undefined,
             },
             body: body ? JSON.stringify(body) : undefined,
         })
@@ -58,11 +60,11 @@ export class API {
     static async getAccessToken()
     {
         const data = await API.rawCall("POST", "auth/accessToken", {}, {
-            token: API.refreshToken,
+            refreshToken: API.refreshToken,
         });
-        if(data)
+        if(data && !data.error)
         {
-            API.accessToken = data.token;
+            API.accessToken = data.accessToken;
         }else{
             API.refreshToken = false;
         }
@@ -70,3 +72,4 @@ export class API {
 }
 
 export const solvers = ["Gecode", "OR-tool"];
+export const statuses = ["In queue", "Computing", "Completed"];

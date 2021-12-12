@@ -14,7 +14,7 @@ class EditDataPage extends React.Component {
     {
         if(this.props.match.params.id !== "new")
         {
-            const data = await API.call("GET", `/data/${this.props.match.params.id}`);
+            const data = await API.call("GET", `/files/${this.props.match.params.id}`);
             if(data && !data.error)
             {
                 this.setState({
@@ -41,7 +41,7 @@ class EditDataPage extends React.Component {
             alert("The content input is required for the model");
         }else{
             const IS_EDITING = this.props.match.params.id !== "new";
-            const route = IS_EDITING ? "/data/" + this.props.match.params.id : "/data";
+            const route = IS_EDITING ? "/files/" + this.props.match.params.id : "/files";
             const method = IS_EDITING ? "PUT" : "POST";
             
             const data = await API.call(method, route, inputData);
