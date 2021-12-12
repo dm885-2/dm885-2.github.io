@@ -1,4 +1,4 @@
-const IP = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "localhost:8080" : "34.88.61.191:80"; // Gateway IP
+const IP = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "http://localhost:8080" : "https://api.dm885-api.workers.dev"; // Gateway IP
 
 export function getInputValues(elements)
 {
@@ -18,7 +18,7 @@ export class API {
 
     static rawCall(method, endpoint, headers = {}, body)
     {
-       return fetch(`http://${IP}/${endpoint}`, {
+       return fetch(`${IP}/${endpoint}`, {
             method,
             headers: {
                 "Content-Type": "application/json",
