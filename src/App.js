@@ -9,8 +9,9 @@ import HistoryPage from "./components/HistoryPage";
 import NewRunPage from "./components/NewRunPage";
 import EditModelPage from "./components/EditModelPage";
 import EditDataPage from "./components/EditDataPage";
+import LogOage from "./components/LogPage";
 
-import {API} from "./helpers";
+import {API} from "./helpers"
 
 export default function App()
 {
@@ -32,7 +33,7 @@ export default function App()
             <>
               {
                 userRank > 0 && <nav className="container-fluid navbar navbar-expand-lg navbar-light bg-light">
-                  <Link className="navbar-brand" to="/">Minisinc</Link>
+                  <Link className="navbar-brand" to="/">MiniZinc</Link>
 
                   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -47,6 +48,9 @@ export default function App()
                       </li>
                       <li className="nav-item">
                         <Link className="nav-link" to="/solvers">Solvers</Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/log">Log</Link>
                       </li>
                     </ul>
                   </div>
