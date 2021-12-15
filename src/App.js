@@ -9,7 +9,7 @@ import HistoryPage from "./components/HistoryPage";
 import NewRunPage from "./components/NewRunPage";
 import EditModelPage from "./components/EditModelPage";
 import EditDataPage from "./components/EditDataPage";
-import LogOage from "./components/LogPage";
+import LogPage from "./components/LogPage";
 
 import {API} from "./helpers"
 
