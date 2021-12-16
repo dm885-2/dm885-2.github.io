@@ -9,7 +9,7 @@ import HistoryPage from "./components/HistoryPage";
 import NewRunPage from "./components/NewRunPage";
 import EditModelPage from "./components/EditModelPage";
 import EditDataPage from "./components/EditDataPage";
-import LogOage from "./components/LogPage";
+import LogPage from "./components/LogPage";
 
 import {API} from "./helpers"
 
@@ -49,8 +49,9 @@ export default function App()
                       <li className="nav-item">
                         <Link className="nav-link" to="/solvers">Solvers</Link>
                       </li>
+
                       <li className="nav-item">
-                        <Link className="nav-link" to="/log">Log</Link>
+                        <Link className="nav-link" to="/log">Logs</Link>
                       </li>
                     </ul>
                   </div>
