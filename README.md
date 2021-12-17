@@ -151,6 +151,7 @@ Response:
     data: [{
         name: string,
         id: number,
+        docker_image: string,
     }]
 }
 ```
@@ -160,6 +161,7 @@ Body:
 ```
 {
     name: string,
+    docker_image: string,
 }
 ```
 Response:
@@ -173,16 +175,9 @@ Body:
 ```
 {
     name: string,
+    docker_image: string,
 }
 ```
-Response:
-```
-{
-    error: Boolean
-}
-```
-#### PUT `/solvers/:id/image` - Uploads the given solvers image
-
 Response:
 ```
 {
