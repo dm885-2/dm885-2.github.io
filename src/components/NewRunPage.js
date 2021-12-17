@@ -10,6 +10,7 @@ class NewRunPage extends React.Component {
         flagA: false,
         flagF: false,
         flagP: 1,
+        flagM: 100
     };
 
     state = {
@@ -177,6 +178,12 @@ class NewRunPage extends React.Component {
                             </div>
                             <div className="col-sm-8">
                                 <input type="number" onChange={(e) => this.updateSolver("solver", Number(e.target.value), key)} min="0" defaultValue={solver.flagP} id="flagP" name="flagP"/>
+                            </div>
+                            <div className="col-sm-4">
+                                <label htmlFor="flagM">Memeory</label>
+                            </div>
+                            <div className="col-sm-8">
+                                <input type="number" onChange={(e) => this.updateSolver("solver", Number(e.target.value), key)} min="0" defaultValue={solver.flagM} id="flagM" name="flagM"/>
                             </div>
                         </div>
                     </div>)
