@@ -73,6 +73,9 @@ export default function App()
                   <Route exact={true} path="/solvers">
                     <SolversPage/>
                   </Route>
+                  <Route exact={true} path="/log">
+                    <LogPage/>
+                  </Route>
                 </>
               }
               <Route exact={true} path="/model/:id">
