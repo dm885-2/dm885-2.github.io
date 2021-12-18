@@ -53,7 +53,7 @@ export default class HistoryPage extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.logs.reverse().map(log => (
+                                    {this.state.logs.map(log => (
                                         <tr key={log.id}>
                                             <td>{log.id}</td>
                                             <td>{log.userId}</td>
