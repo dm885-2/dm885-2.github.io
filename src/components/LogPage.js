@@ -24,9 +24,10 @@ export default class HistoryPage extends React.Component {
      */
     getData()
     {
-        API.call("GET", "/logs").then(resp => {
+        API.call("GET", "logs").then(resp => {
             if(resp && !resp.error)
             {
+                
                 this.setState({
                     logs: resp.data,
                 });
@@ -36,7 +37,7 @@ export default class HistoryPage extends React.Component {
 
     render()
     {
-        return (<div className="container pt-4">
+        return (<div className="container pt-8">
                 <div className="row align-items-start">
                     <div className="col-md-12">
                         <div className="card card-body">
@@ -52,12 +53,13 @@ export default class HistoryPage extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.logs.map(log => (
+                                    {this.state.logs.reverse().map(log => (
                                         <tr key={log.id}>
                                             <td>{log.id}</td>
                                             <td>{log.userId}</td>
                                             <td>{log.sessionId}</td>
                                             <td>{log.requestId}</td>
+                                            <td>{log.logPath}</td>
                                         </tr>
                                     ))}
                                 </tbody>
