@@ -16,7 +16,7 @@ import {API} from "./helpers"
 
 export default function App()
 {
-  const [refreshToken, setRefreshTokenState] = useState(true);
+  const [refreshToken, setRefreshTokenState] = useState(false);
   const [userRank, setUserRank] = useState(1);
 
   /**
