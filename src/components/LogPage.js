@@ -1,6 +1,3 @@
-
-
-
 // React component for the log page. The pages should call api /logs and then pass the data to this component.
 // The component will then render the log data into a table with the following columns:
 // -`userId` 
@@ -8,13 +5,9 @@
 // -`requestId`
 // - `logPath`
 
-
 import React from "react";
-// import {Link} from "react-router-dom";
 
 import {API} from "../helpers";
-
-
 
 export default class HistoryPage extends React.Component {
     state = {
@@ -39,16 +32,11 @@ export default class HistoryPage extends React.Component {
                 });
             }
         });
-        
-      
     }
 
     render()
     {
-        return (
-            
-
-            <div className="container pt-4">
+        return (<div className="container pt-4">
                 <div className="row align-items-start">
                     <div className="col-md-12">
                         <div className="card card-body">
@@ -61,7 +49,6 @@ export default class HistoryPage extends React.Component {
                                         <th>Session</th>
                                         <th>Request</th>
                                         <th>Path</th>
-            
                                     </tr>
                                 </thead>
                                 <tbody>

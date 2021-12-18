@@ -10,7 +10,8 @@ class NewRunPage extends React.Component {
         flagA: false,
         flagF: false,
         flagP: 1,
-        flagM: 100
+        flagM: 100,
+        memory: 0,
     };
 
     state = {
@@ -47,6 +48,16 @@ class NewRunPage extends React.Component {
                 this.setState({
                     data: resp.results,
                 });
+            }
+        });
+
+        API.call("GET", "solvers").then(resp => {
+            if(resp && !resp.error)
+            {
+                console.log("Got solvers", resp);
+                // this.setState({
+                //     data: resp.results,
+                // });
             }
         });
     }
@@ -180,7 +191,7 @@ class NewRunPage extends React.Component {
                                 <input type="number" onChange={(e) => this.updateSolver("solver", Number(e.target.value), key)} min="0" defaultValue={solver.flagP} id="flagP" name="flagP"/>
                             </div>
                             <div className="col-sm-4">
-                                <label htmlFor="memory">Memeory</label>
+                                <label htmlFor="memory">Memeory (0 = not set)</label>
                             </div>
                             <div className="col-sm-8">
                                 <input type="number" onChange={(e) => this.updateSolver("memory", Number(e.target.value), key)} min="0" defaultValue={solver.memory} id="memory" name="memory"/>
