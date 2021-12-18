@@ -20,12 +20,12 @@ export default class HistoryPage extends React.Component {
      * @param {*} type 
      * @param {*} id 
      */
-    async delete(type, id)
+    async delete(id)
     {
         const check = window.confirm("Are you sure you want to delete it?");
         if(check)
         {
-            const data = await API.call("DELETE", `${type}/${id}`);
+            const data = await API.call("DELETE", `files/${id}`);
             if(data)
             {
                 this.getData();
@@ -47,7 +47,7 @@ export default class HistoryPage extends React.Component {
             }
         });
         
-        API.call("GET", "files/all/model").then(resp => {
+        API.call("GET", "files/all/0").then(resp => {
             if(resp && !resp.error)
             {
                 this.setState({
@@ -56,7 +56,7 @@ export default class HistoryPage extends React.Component {
             }
         });
         
-        API.call("GET", "files/all/data").then(resp => {
+        API.call("GET", "files/all/1").then(resp => {
             if(resp && !resp.error)
             {
                 this.setState({
@@ -113,22 +113,20 @@ export default class HistoryPage extends React.Component {
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Size</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.state.models.map(model => (
                                     <tr key={model.id}>
-                                        <td>{model.id}</td>
-                                        <td>{(model.name)}</td>
-                                        <td>{model.size}</td>
+                                        <td>{model.fileId}</td>
+                                        <td>{model.filename}</td>
                                         <td>
                                             <Link to={`/model/${model.id}`} className="text-dark">
                                                 <i className="bi bi-pencil-square"/>
                                             </Link>
                                         </td>
                                         <td>
-                                            <i onClick={() => this.delete("model", model.id)} role="button" className="bi bi-trash"></i>
+                                            <i onClick={() => this.delete(model.fileId)} role="button" className="bi bi-trash"></i>
                                         </td>
                                         <td>
                                             <i className="bi bi-cloud-arrow-up"></i>    
@@ -153,22 +151,20 @@ export default class HistoryPage extends React.Component {
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Size</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.state.data.map(data => (
                                     <tr key={data.id}>
-                                        <td>{data.id}</td>
-                                        <td>{data.name}</td>
-                                        <td>{data.size}</td>
+                                        <td>{data.fileId}</td>
+                                        <td>{data.filename}</td>
                                         <td>
-                                            <Link to={`/data/${data.id}`} className="text-dark">
+                                            <Link to={`/data/${data.fileId}`} className="text-dark">
                                                 <i className="bi bi-pencil-square"/>
                                             </Link>
                                         </td>
                                         <td>
-                                            <i onClick={() => this.delete("data", data.id)} role="button" className="bi bi-trash"/>
+                                            <i onClick={() => this.delete(data.fileId)} role="button" className="bi bi-trash"/>
                                         </td>
                                         <td>
                                             <i className="bi bi-cloud-arrow-up"/>

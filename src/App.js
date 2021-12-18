@@ -7,8 +7,9 @@ import SolversPage from "./components/SolversPage";
 import SignUpPage from "./components/SignUpPage";
 import HistoryPage from "./components/HistoryPage";
 import NewRunPage from "./components/NewRunPage";
-import EditModelPage from "./components/EditModelPage";
-import EditDataPage from "./components/EditDataPage";
+import EditFilePage from "./components/EditFilePage";
+// import EditModelPage from "./components/EditModelPage";
+// import EditDataPage from "./components/EditDataPage";
 import LogPage from "./components/LogPage";
 
 import {API} from "./helpers"
@@ -79,10 +80,10 @@ export default function App()
                 </>
               }
               <Route exact={true} path="/model/:id">
-                <EditModelPage/>
+                <EditFilePage type={0}/>
               </Route>
               <Route exact={true} path="/data/:id">
-                <EditDataPage/>
+                <EditFilePage type={1}/>
               </Route>
               <Route path="*">
                 <HistoryPage />

@@ -32,20 +32,20 @@ class NewRunPage extends React.Component {
      */
     getData()
     {
-        API.call("GET", "/model").then(resp => {
+        API.call("GET", "files/all/0").then(resp => {
             if(resp && !resp.error)
             {
                 this.setState({
-                    models: resp.data,
+                    models: resp.results,
                 });
             }
         });
 
-        API.call("GET", "/data").then(resp => {
+        API.call("GET", "files/all/1").then(resp => {
             if(resp && !resp.error)
             {
                 this.setState({
-                    data: resp.data,
+                    data: resp.results,
                 });
             }
         });
@@ -100,7 +100,7 @@ class NewRunPage extends React.Component {
         {
             alert("You need atleast one solver");
         }else{
-            const resp = await API.call("POST", "run", data);
+            const resp = await API.call("POST", "jobs", data);
             if(resp && !resp.error)
             {
                 alert("Your run has been saved!");
@@ -120,7 +120,7 @@ class NewRunPage extends React.Component {
                         <select className="form-select form-select-lg mb-2" onChange={(e) => this.setState({currentModel: Number(e.target.value)})} defaultValue={this.state.currentModel} aria-label=".form-select-lg" style={{ width: '40%' }}>
                             <option value="0">Choose a model</option>
                             {this.state.models.map(model => (
-                                <option value={model.id} key={model.id}>{model.name}</option>
+                                <option value={model.fileId} key={model.fileId}>{model.filename}</option>
                             ))}
                         </select>
                     </div>
@@ -129,7 +129,7 @@ class NewRunPage extends React.Component {
                         <select className="form-select form-select-lg mb-2" onChange={(e) => this.setState({currentDataset: Number(e.target.value)})} defaultValue={this.state.currentDataset} aria-label=".form-select-lg" style={{ width: '40%' }}>
                             <option value="0">Choose a dataset</option>
                             {this.state.data.map(data => (
-                                <option value={data.id} key={data.id}>{data.name}</option>
+                                <option value={data.fileId} key={data.fileId}>{data.filename}</option>
                             ))}
                         </select>
                     </div>
@@ -180,10 +180,10 @@ class NewRunPage extends React.Component {
                                 <input type="number" onChange={(e) => this.updateSolver("solver", Number(e.target.value), key)} min="0" defaultValue={solver.flagP} id="flagP" name="flagP"/>
                             </div>
                             <div className="col-sm-4">
-                                <label htmlFor="flagM">Memeory</label>
+                                <label htmlFor="memory">Memeory</label>
                             </div>
                             <div className="col-sm-8">
-                                <input type="number" onChange={(e) => this.updateSolver("solver", Number(e.target.value), key)} min="0" defaultValue={solver.flagM} id="flagM" name="flagM"/>
+                                <input type="number" onChange={(e) => this.updateSolver("memory", Number(e.target.value), key)} min="0" defaultValue={solver.memory} id="memory" name="memory"/>
                             </div>
                         </div>
                     </div>)
