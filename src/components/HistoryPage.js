@@ -9,10 +9,17 @@ export default class HistoryPage extends React.Component {
         models: [],
         data: []
     };
+    _refreshInt;
 
     componentDidMount()
     {
         this.getData();
+        this._refreshInt = setInterval(() => this.getData(0), 2500);
+    }
+
+    componentWillUnmount()
+    {
+        clearInterval(this._refreshInt);
     }
 
     /**
@@ -36,7 +43,7 @@ export default class HistoryPage extends React.Component {
     /**
      * Gets the data and model data.
      */
-    getData()
+    getData(everything = 1)
     {
         API.call("GET", "jobs").then(resp => {
             if(resp && !resp.error)
@@ -47,23 +54,26 @@ export default class HistoryPage extends React.Component {
             }
         });
         
-        API.call("GET", "files/all/0").then(resp => {
-            if(resp && !resp.error)
-            {
-                this.setState({
-                    models: resp.results,
-                });
-            }
-        });
-        
-        API.call("GET", "files/all/1").then(resp => {
-            if(resp && !resp.error)
-            {
-                this.setState({
-                    data: resp.results,
-                });
-            }
-        });
+        if(everything === 0)
+        {
+            API.call("GET", "files/all/0").then(resp => {
+                if(resp && !resp.error)
+                {
+                    this.setState({
+                        models: resp.results,
+                    });
+                }
+            });
+            
+            API.call("GET", "files/all/1").then(resp => {
+                if(resp && !resp.error)
+                {
+                    this.setState({
+                        data: resp.results,
+                    });
+                }
+            });
+        }
     }
     
     render()
@@ -88,7 +98,11 @@ export default class HistoryPage extends React.Component {
                                         <tr key={history.id}>
                                             <td>{history.id}</td>
                                             <td>{new Date(history.timestamp).toLocaleString()}</td>
-                                            <td>{statuses[history.status]}</td>
+                                            <td>
+                                                {
+                                                    history.status === 1 ? <div className="spinner-border text-primary" role="status"/> : statuses[history.status]
+                                                }
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -128,9 +142,6 @@ export default class HistoryPage extends React.Component {
                                         <td>
                                             <i onClick={() => this.delete(model.fileId)} role="button" className="bi bi-trash"></i>
                                         </td>
-                                        <td>
-                                            <i className="bi bi-cloud-arrow-up"></i>    
-                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -165,9 +176,6 @@ export default class HistoryPage extends React.Component {
                                         </td>
                                         <td>
                                             <i onClick={() => this.delete(data.fileId)} role="button" className="bi bi-trash"/>
-                                        </td>
-                                        <td>
-                                            <i className="bi bi-cloud-arrow-up"/>
                                         </td>
                                     </tr>
                                 ))}
