@@ -3,6 +3,7 @@ import {withRouter} from "react-router";
 
 import {API, getInputValues} from "../helpers";
 
+const extensions = [".mzn", ".dzn"];
 const names = ["model", "data"];
 class EditModelPage extends React.Component {
     state = {
@@ -36,9 +37,6 @@ class EditModelPage extends React.Component {
         if(inputData.filename.length === 0)
         {
             alert("The name input is required for the " + names[this.props.type]);
-        }else if(inputData.data.length === 0)
-        {
-            alert("The content input is required for the " + names[this.props.type]);
         }else{
             const IS_EDITING = this.props.match.params.id !== "new";
             const route = IS_EDITING ? "files/" + this.props.match.params.id : "files";
@@ -46,6 +44,7 @@ class EditModelPage extends React.Component {
 
             const data = await API.call(method, route, {
                 ...inputData,
+                data: this.state.content,
                 filetype: this.props.type,
             });
             if(data && !data.error)
@@ -58,6 +57,18 @@ class EditModelPage extends React.Component {
         }
     }
 
+    parseFile(e)
+    {
+        const file = e.target.files[0];
+        const fs = new FileReader();
+        fs.onload = (data) => {
+            this.setState({
+                content: data.target.result
+            });
+        };
+        fs.readAsText(file);
+    }
+
     render()
     {
         const typeName = names[this.props.type];
@@ -65,13 +76,13 @@ class EditModelPage extends React.Component {
         return (<div className="container pt-4">
                     <form onSubmit={e => this.save(e)}>
                         <h1>{IS_EDITING ? "Edit " + typeName : "New " + typeName}</h1>
-                        <div className="form-group">
+                        <div className="form-group pb-2">
                             <label for="nameInp">Name</label>
                             <input type="input" disabled={IS_EDITING} defaultValue={this.state.name} className="form-control" id="nameInp" name="filename" placeholder={`${typeName} name`}/>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group pb-2">
                             <label for="contentInp">Model</label>
-                            <textarea type="input" defaultValue={this.state.content} placeholder={`Contents of ${typeName} itself..`} className="form-control" id="contentInp" name="data"/>
+                            <input id="contentInp" type="file" onChange={e => this.parseFile(e)} accept={extensions[this.props.type]} className="form-control" />
                         </div>
                         <button className="btn btn-primary mt-2">Save</button>
                     </form>
