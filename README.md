@@ -1,4 +1,17 @@
 # Website
+## Deployment Guide
+### Deploy to GitHub Pages
+Push this folder to you GitHub acount.
+This GiitHub action will trigger every time a change is pushed to the main branch. It will build the React app and deplay the content of the builld directory to 'gh-pages' branch.
+
+a GITHUB_TOKEN is needed in ${{secrets.GITHUB_TOKEN }}. Github wil normally automatiically create a token secret to use in the workflow. It comes with write access to the reporsitory. And therforere it is allowed to update the 'gh-pages' branch.
+
+### Setup GitHub pages
+Now we need to enable GitHubPages. Click on settings in the menu. Choose 'Pages'. The build files are pushed to 'gh-pages' choose this branch as sources. Click on the save button
+
+### Setup homepage
+Open up the source code and in the package.json add a key-value pair. Insert and replace this:
+"homepage": "https://<username>.github.io/<project>/",
 
 ## Endpoints used
 
