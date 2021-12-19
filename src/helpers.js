@@ -1,4 +1,4 @@
-const IP = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') && 0  ? "http://localhost:8080" : "https://dm885.smessie.com"; // Gateway IP
+const IP = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? "http://localhost:8080" : "https://dm885.smessie.com"; // Gateway IP
 
 export function getInputValues(elements)
 {

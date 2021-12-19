@@ -36,6 +36,7 @@ class NewRunPage extends React.Component {
         API.call("GET", "files/all/0").then(resp => {
             if(resp && !resp.error)
             {
+                console.log("Got resp", resp);
                 this.setState({
                     models: resp.results,
                 });
@@ -54,10 +55,9 @@ class NewRunPage extends React.Component {
         API.call("GET", "solvers").then(resp => {
             if(resp && !resp.error)
             {
-                console.log("Got solvers", resp);
-                // this.setState({
-                //     data: resp.results,
-                // });
+                this.setState({
+                    solvers: resp.data,
+                });
             }
         });
     }
@@ -146,9 +146,9 @@ class NewRunPage extends React.Component {
                     </div>
 
 
-                    <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1"></input>
-                    <label class="custom-control-label" for="customCheck1"> Parallel run</label>
+                    <div className="custom-control custom-checkbox">
+                        <input type="checkbox" className="custom-control-input" id="customCheck1"></input>
+                        <label className="custom-control-label" htmlFor="customCheck1"> Parallel run</label>
                     </div>
 
                     <div className="col-sm-4">
@@ -199,7 +199,7 @@ class NewRunPage extends React.Component {
                         </div>
                     </div>)
                     }
-                <div class="btn-group mr-2" role="group">
+                <div className="btn-group mr-2" role="group">
                     <button onClick={() => this.save()} className="btn btn-primary mt-2">Save</button>
                     <button onClick={() => this.addSolver()} className="btn btn-secondary mt-2">New solver</button>
                 </div>
