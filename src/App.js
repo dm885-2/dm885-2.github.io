@@ -42,7 +42,7 @@ export default function App()
       setUserRank(r);
       setRefreshToken(t);
     }
-  });
+  }, []);
 
   return (<Router>
         {
