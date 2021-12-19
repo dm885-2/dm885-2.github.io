@@ -54,7 +54,7 @@ export default class HistoryPage extends React.Component {
             }
         });
         
-        if(everything === 0)
+        if(everything === 1)
         {
             API.call("GET", "files/all/0").then(resp => {
                 if(resp && !resp.error)
