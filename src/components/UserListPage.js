@@ -22,7 +22,7 @@ class UserListPage extends React.Component {
     getData()
     {
         console.log("GEETTIIING DATE")
-        API.call("GET", "users").then(resp => {
+        API.call("get", "users").then(resp => {
             console.log("resp", resp);
             if(resp && !resp.error)
             {
@@ -45,7 +45,9 @@ class UserListPage extends React.Component {
                         <table className="table table-striped">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Username</th>
+                                    <th>Rank</th>
                                     <th>Delete</th>
                                     <th>Stop Que</th>
                                     <th>Recourse Limit</th>
@@ -56,7 +58,9 @@ class UserListPage extends React.Component {
                                     this.state.user.map(user => {
                                         return (
                                             <tr key={user.id}>
-                                                <td>{user.username}</td>
+                                                <td>{user.id}</td>
+                                                <td>{user.email}</td>
+                                                <td>{user.rank}</td>
                                                 <td>
                                                     <button className="btn btn-danger" onClick={() => {
                                                         API.call("DELETE", `/users/${user.id}`).then(resp => {
