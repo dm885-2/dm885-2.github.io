@@ -7,7 +7,7 @@ import {API} from "../helpers";
 class UserListPage extends React.Component {
     
     state = {
-        user: [{id: 1, username: "oliver", recourseLimit: 6}],
+        user: []
        
     };
 
@@ -21,7 +21,9 @@ class UserListPage extends React.Component {
      */
     getData()
     {
-        API.call("GET", "/users").then(resp => {
+        console.log("GEETTIIING DATE")
+        API.call("GET", "users").then(resp => {
+            console.log("resp", resp);
             if(resp && !resp.error)
             {
                 this.setState({
