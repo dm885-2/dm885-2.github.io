@@ -11,9 +11,10 @@ class NewRunPage extends React.Component {
         flagF: false,
         flagP: 1,
         flagM: 100,
-        cpuLimit: 0,
+        cpuLimit: 1,
         memoryLimit: 0,
         timeLimit: 0,
+        // solverID: 1,
     };
 
     state = {
@@ -191,7 +192,7 @@ class NewRunPage extends React.Component {
                                 <label htmlFor="cpuLimit">vCPU's</label>
                             </div>
                             <div className="col-sm-8">
-                                <input type="number" onChange={(e) => this.updateSolver("cpuLimit", Number(e.target.value), key)} min="0" defaultValue={solver.cpuLimit} id="cpuLimit" name="cpuLimit"/>
+                                <input type="number" min="1" onChange={(e) => this.updateSolver("cpuLimit", Number(e.target.value), key)} min="0" defaultValue={solver.cpuLimit} id="cpuLimit" name="cpuLimit"/>
                             </div>
                             <div className="col-sm-4">
                                 <label htmlFor="memoryLimit">Memory [mb] (0 = not set)</label>

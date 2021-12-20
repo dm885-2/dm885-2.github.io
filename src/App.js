@@ -12,7 +12,7 @@ import EditFilePage from "./components/EditFilePage";
 // import EditDataPage from "./components/EditDataPage";
 import LogPage from "./components/LogPage";
 
-import {API} from "./helpers"
+import {API, IP} from "./helpers"
 import GrafanaRabbitMQPage from './components/GrafanaRabbitMQPage';
 import GrafanaMySQLPage from './components/GrafanaMySQLPage';
 import GrafanaKubernetesPage from './components/GrafanaKubernetesPage';
@@ -32,14 +32,14 @@ export default function App()
   };
 
   const signOut = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("token" + IP);
     setUserRank(1);
     setRefreshToken(false);
   };
 
   useEffect(() => {
-    const t = localStorage.getItem("token");
-    const r = localStorage.getItem("rank");
+    const t = localStorage.getItem("token" + IP);
+    const r = localStorage.getItem("rank" + IP);
     if(t && r)
     {
       setUserRank(r);
@@ -135,8 +135,8 @@ export default function App()
                 <LoginPage setRefreshToken={(t, rank = 0) => {
                   setUserRank(rank);
                   setRefreshToken(t);
-                  localStorage.setItem("token", t);
-                  localStorage.setItem("rank", rank);
+                  localStorage.setItem("token" + IP, t);
+                  localStorage.setItem("rank" + IP, rank);
                 }} />
               </Route>
             </Switch>
