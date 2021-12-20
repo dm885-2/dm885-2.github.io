@@ -9,8 +9,6 @@ class NewRunPage extends React.Component {
         solver: solvers[0],
         flagA: false,
         flagF: false,
-        flagP: 1,
-        flagM: 100,
         cpuLimit: 1,
         memoryLimit: 0,
         timeLimit: 0,
@@ -108,12 +106,16 @@ class NewRunPage extends React.Component {
             dataset: this.state.currentDataset,
             solvers: [...this.state.solvers],
         };
+        const solverCheck = data.solvers.some(d => !d.solverID || d.solverID === -1);
         if(data.model === 0)
         {
             alert("A valid model needs to be choosen");
         }else if(data.solvers.length === 0)
         {
             alert("You need atleast one solver");
+        }else if(solverCheck)
+        {
+            alert("A solver should be specified");
         }else{
             const resp = await API.call("POST", "jobs", data);
             if(resp && !resp.error)
@@ -149,25 +151,13 @@ class NewRunPage extends React.Component {
                         </select>
                     </div>
 
-
-                    {/* <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1"></input>
-                        <label className="custom-control-label" htmlFor="customCheck1"> Parallel run</label>
-                    </div> */}
-
-                    {/* <div className="col-sm-4">
-                        <label htmlFor="timeLimit">Time limit in seconds</label>
-                    </div>
-                    <div className="col-sm-8">
-                        <input type="number" id="timeLim" name="timeLim"/>
-                    </div> */}
-
                     {
                         this.state.solvers.map((solver, key) => <div className="pt-4 pb-4 border-top" key={key}>
                         <label htmlFor="solver">
                             <h5>Solver #{key + 1}</h5>
                         </label>
-                        <select onChange={(e) => this.updateSolver("solver", e.target.value, key)} className="form-select form-select-lg mb-2" aria-label=".form-select-lg example" id="solver">
+                        <select onChange={(e) => this.updateSolver("solverID", Number(e.target.value), key)} className="form-select form-select-lg mb-2" aria-label=".form-select-lg example" id="solver">
+                            <option id="-1">Please select a solver</option>
                             {
                                 this.state.solverData.map((solver, i) => <option value={solver.id} key={i}>{solver.name}</option>)
                             }
