@@ -9,17 +9,24 @@ export default class HistoryPage extends React.Component {
         models: [],
         data: []
     };
-    _refreshInt;
+    shouldGetData = true;
 
     componentDidMount()
     {
         this.getData();
-        this._refreshInt = setInterval(() => this.getData(0), 3500);
     }
 
     componentWillUnmount()
     {
-        clearInterval(this._refreshInt);
+        this.shouldGetData = false;
+    }
+
+    getInt()
+    {
+        if(this.shouldGetData)
+        {
+            this.getData(0).then(d => setTimeout(() => this.getInt(), 3500));
+        }
     }
 
     /**
@@ -43,9 +50,9 @@ export default class HistoryPage extends React.Component {
     /**
      * Gets the data and model data.
      */
-    getData(everything = 1)
+    async getData(everything = 1)
     {
-        API.call("GET", "jobs").then(resp => {
+        await API.call("GET", "jobs").then(resp => {
             if(resp && !resp.error)
             {
                 this.setState({
@@ -56,7 +63,7 @@ export default class HistoryPage extends React.Component {
         
         if(everything === 1)
         {
-            API.call("GET", "files/all/0").then(resp => {
+            await API.call("GET", "files/all/0").then(resp => {
                 if(resp && !resp.error)
                 {
                     this.setState({
@@ -65,7 +72,7 @@ export default class HistoryPage extends React.Component {
                 }
             });
             
-            API.call("GET", "files/all/1").then(resp => {
+            await API.call("GET", "files/all/1").then(resp => {
                 if(resp && !resp.error)
                 {
                     this.setState({
