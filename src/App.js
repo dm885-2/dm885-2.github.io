@@ -44,6 +44,10 @@ export default function App()
     }
   }, []);
 
+  const AdminRoute = (props) => userRank > 0 && <Route {...props}>
+                                    {props.children}
+                                  </Route>
+
   return (<Router>
         {
           refreshToken ?
@@ -87,19 +91,15 @@ export default function App()
               <Route exact={true} path="/newRun">
                 <NewRunPage/>
               </Route>
-              {
-                userRank > 0 && <>
-                  <Route exact={true} path="/users">
-                    <UserListPage/>
-                  </Route>
-                  <Route exact={true} path="/solvers">
-                    <SolversPage/>
-                  </Route>
-                  <Route exact={true} path="/log">
-                    <LogPage/>
-                  </Route>
-                </>
-              }
+              <AdminRoute exact={true} path="/users">
+                <UserListPage/>
+              </AdminRoute>
+              <AdminRoute exact={true} path="/solvers">
+                <SolversPage/>
+              </AdminRoute>
+              <AdminRoute exact={true} path="/log">
+                <LogPage/>
+              </AdminRoute>
               <Route exact={true} path="/model/:id">
                 <EditFilePage type={0}/>
               </Route>
