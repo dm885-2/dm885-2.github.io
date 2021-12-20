@@ -22,11 +22,9 @@ class GrafanaKubernetesPage extends React.Component {
               </li>
             </ul>
             <br/>
-            <iframe
-              src="http://34.88.95.145/d/6581e46e4e5c7ba40a07646395ef7b23/kubernetes-compute-resources-pod?orgId=1&refresh=10s&from=1639997194836&to=1640000794836&theme=light"
-              title="Kubernetes Grafana Dashboard"
-              width="100%"
-              height="100%"/>
+            <a role="button" target="_blank"
+               href="https://grafana.smessie.com/d/6581e46e4e5c7ba40a07646395ef7b23/kubernetes-compute-resources-pod?orgId=1&refresh=10s"
+               className="btn btn-primary">Open Kubernetes Grafana Dashboard</a>
           </div>
         </div>
       </div>

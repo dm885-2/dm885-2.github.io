@@ -22,11 +22,9 @@ class GrafanaRabbitMQPage extends React.Component {
               </li>
             </ul>
             <br/>
-            <iframe
-              src="http://34.88.95.145/d/Kn5xm-gZk/rabbitmq-overview?orgId=1&refresh=15s&from=1639999832287&to=1640000732287&theme=light"
-              title="RabbitMQ Grafana Dashboard"
-              width="100%"
-              height="100%"/>
+            <a role="button" target="_blank"
+               href="https://grafana.smessie.com/d/Kn5xm-gZk/rabbitmq-overview?orgId=1&refresh=15s"
+               className="btn btn-primary">Open RabbitMQ Grafana Dashboard</a>
           </div>
         </div>
       </div>

@@ -22,11 +22,9 @@ class GrafanaMySQLPage extends React.Component {
               </li>
             </ul>
             <br/>
-            <iframe
-              src="http://34.88.95.145/d/549c2bf8936f7767ea6ac47c47b00f2a/mysql-exporter-quickstart-and-dashboard?orgId=1&refresh=10s"
-              title="MySQL Grafana Dashboard"
-              width="100%"
-              height="100%"/>
+            <a role="button" target="_blank"
+               href="https://grafana.smessie.com/d/549c2bf8936f7767ea6ac47c47b00f2a/mysql-exporter-quickstart-and-dashboard?orgId=1&refresh=10s"
+               className="btn btn-primary">Open MySQL Grafana Dashboard</a>
           </div>
         </div>
       </div>
