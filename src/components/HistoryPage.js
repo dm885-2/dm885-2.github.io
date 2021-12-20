@@ -14,7 +14,7 @@ export default class HistoryPage extends React.Component {
     componentDidMount()
     {
         this.getData();
-        this._refreshInt = setInterval(() => this.getData(0), 2500);
+        this._refreshInt = setInterval(() => this.getData(0), 3500);
     }
 
     componentWillUnmount()
