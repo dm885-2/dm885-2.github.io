@@ -14,6 +14,7 @@ export default class HistoryPage extends React.Component {
     componentDidMount()
     {
         this.getData();
+        setTimeout(() => this.getInt(), 3000);
     }
 
     componentWillUnmount()
@@ -25,7 +26,10 @@ export default class HistoryPage extends React.Component {
     {
         if(this.shouldGetData)
         {
-            this.getData(0).then(d => setTimeout(() => this.getInt(), 3500));
+            this.getData(0).then(d => {
+                console.log("Resolved!!");
+                setTimeout(() => this.getInt(), 3000);
+            });
         }
     }
 
@@ -52,18 +56,28 @@ export default class HistoryPage extends React.Component {
      */
     async getData(everything = 1)
     {
-        await API.call("GET", "jobs").then(resp => {
-            if(resp && !resp.error)
-            {
-                this.setState({
-                    history: resp.data,
-                });
-            }
-        });
+        const resp = await API.call("GET", "jobs");
+        if(resp && !resp.error)
+        {
+            this.setState({
+                history: resp.data.map(d => {
+                    d.timeRunning = 0;
+                    if(d.status === 1)
+                    {
+                        console.log(Date.now(), Number(d.startTime));
+                        d.timeRunning = Date.now() - Number(d.startTime);
+                    }else if(d.status === 2)
+                    {
+                        d.timeRunning = Number(d.endTime) - Number(d.startTime);
+                    }
+                    return d;
+                }),
+            });
+        }
         
         if(everything === 1)
         {
-            await API.call("GET", "files/all/0").then(resp => {
+            API.call("GET", "files/all/0").then(resp => {
                 if(resp && !resp.error)
                 {
                     this.setState({
@@ -72,7 +86,7 @@ export default class HistoryPage extends React.Component {
                 }
             });
             
-            await API.call("GET", "files/all/1").then(resp => {
+            API.call("GET", "files/all/1").then(resp => {
                 if(resp && !resp.error)
                 {
                     this.setState({
@@ -81,6 +95,31 @@ export default class HistoryPage extends React.Component {
                 }
             });
         }
+        console.log("Doone!");
+    }
+
+    async loadOutput(id)
+    {
+        const out = await API.call("GET", "jobs/" + id);
+        if(out && !out.error)
+        {
+            const index = this.state.history.findIndex(d => d.id === id);
+            let history = [...this.state.history];
+            history[index].output = out.data;
+            history[index].opened = true;
+            this.setState({
+                history
+            });
+        }
+    }
+
+    toMinutes(diff)
+    {
+        const diffDays = Math.floor(diff / 86400000); // days
+        const diffHrs = Math.floor((diff % 86400000) / 3600000); // hours
+        const diffMins = Math.round(((diff % 86400000) % 3600000) / 60000); // minutes
+        const diffSec = Math.round((((diff % 86400000) % 3600000) % 60000) / 1000); // minutes
+        return diffDays + "d " + diffHrs + "h " + diffMins + "m " + diffSec + "s";
     }
     
     render()
@@ -96,7 +135,7 @@ export default class HistoryPage extends React.Component {
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Time</th>
+                                        <th>Running time</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -104,12 +143,17 @@ export default class HistoryPage extends React.Component {
                                     {this.state.history.map(history => (
                                         <tr key={history.id}>
                                             <td>{history.id}</td>
-                                            <td>{new Date(history.timestamp).toLocaleString()}</td>
+                                            <td>{history.status !== 0 && this.toMinutes(history.timeRunning)}</td>
                                             <td>
                                                 {
                                                     history.status === 1 ? <div className="spinner-border text-primary" role="status"/> : statuses[history.status]
                                                 }
                                             </td>
+                                            {
+                                                history.status === 2 ? <td>
+                                                    <button className="btn btn-secondary" onClick={() => this.loadOutput(history.id)}>Output</button>
+                                                </td> : <td/>
+                                            }
                                         </tr>
                                     ))}
                                 </tbody>
