@@ -46,9 +46,9 @@ class UserListPage extends React.Component {
                                     <th>ID</th>
                                     <th>Username</th>
                                     <th>Rank</th>
-                                    <th>Delete</th>
-                                    <th>Stop Que</th>
-                                    <th>Recourse Limit</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Resource limit [vCPUs]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,33 +77,25 @@ class UserListPage extends React.Component {
                                                                 this.getData();
                                                             }
                                                         });
-                                                    }}>Stop Que</button>
+                                                    }}>Stop queue</button>
                                                 </td>
                                                 <td> 
                                                     <button className="btn btn-secondary" onClick={() => {
-                                                       const enteredLimit = prompt('Set recourse limit for user: ' + user.email, user.solverLimit);
-                                                       if (this.isInt(enteredLimit) === true){
-                                                         API.call("PUT", `/users/${user.id}/recourseLimit/${enteredLimit}`).then(resp => {
-                                                                if(resp && !resp.error)
-                                                                {
-                                                                    this.getData();
-                                                                    <div class="alert alert-success" role="alert">
-                                                                        <h4 class="alert-heading">Updated!</h4>
-                                                                        <p>The recourse limit for user {user.email} has been updated to {enteredLimit}.</p>
-                                                                        </div>
-                                                                }
-                                                            
-                                                    })
-                                                    
-                                                    
-                                                    }else{
-                                                        <div class="alert alert-alert" role="alert">
-                                                        <h4 class="alert-heading">Error!</h4>
-                                                        <p>The recourse limit for user {user.email} has not been updated. Please enter a valid number.</p>
+                                                        const enteredLimit = prompt('Set recourse limit for user: ' + user.email, user.solverLimit);
+                                                        if (this.isInt(enteredLimit) === true){
+                                                            API.call("PUT", `/users/${user.id}/recourseLimit/${enteredLimit}`).then(resp => {
+                                                                    if(resp && !resp.error)
+                                                                    {
+                                                                        this.getData();
+                                                                        alert(`The recourse limit for user ${user.email} has been updated to ${enteredLimit}.`);
+                                                                    }
+                                                            })
                                                         
-                                                        </div>
-                                                    }
-                                                    }}>{user.solverLimit}</button></td>
+                                                        
+                                                        }else{
+                                                            alert(`The recourse limit for user ${user.email} has not been updated. Please enter a valid number.`)
+                                                        }
+                                                    }}>Change ({user.solverLimit})</button></td>
                                             </tr>
                                         );
                                     })
