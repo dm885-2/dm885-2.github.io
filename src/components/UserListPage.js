@@ -72,19 +72,19 @@ class UserListPage extends React.Component {
                                                 </td>
                                                 <td>
                                                     <button className="btn btn-danger" onClick={() => {
-                                                        API.call("PUT", `users/${user.id}/stop`).then(resp => {
+                                                        API.call("GET", `users/${user.id}/clearQueue`).then(resp => {
                                                             if(resp && !resp.error)
                                                             {
                                                                 this.getData();
                                                             }
                                                         });
-                                                    }}>Stop queue</button>
+                                                    }}>Clear queue</button>
                                                 </td>
                                                 <td> 
                                                     <button className="btn btn-secondary" onClick={() => {
                                                         const enteredLimit = prompt('Set recourse limit for user: ' + user.email, user.solverLimit);
                                                         if (this.isInt(enteredLimit) === true){
-                                                            API.call("PUT", `/users/${user.id}/recourseLimit/${enteredLimit}`).then(resp => {
+                                                            API.call("PUT", `users/${user.id}/resourceLimit/${enteredLimit}`).then(resp => {
                                                                     if(resp && !resp.error)
                                                                     {
                                                                         this.getData();
