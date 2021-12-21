@@ -76,6 +76,7 @@ class UserListPage extends React.Component {
                                                             if(resp && !resp.error)
                                                             {
                                                                 this.getData();
+                                                                alert(resp.message);
                                                             }
                                                         });
                                                     }}>Clear queue</button>
@@ -85,11 +86,11 @@ class UserListPage extends React.Component {
                                                         const enteredLimit = prompt('Set recourse limit for user: ' + user.email, user.solverLimit);
                                                         if (this.isInt(enteredLimit) === true){
                                                             API.call("PUT", `users/${user.id}/resourceLimit/${enteredLimit}`).then(resp => {
-                                                                    if(resp && !resp.error)
-                                                                    {
-                                                                        this.getData();
-                                                                        alert(`The recourse limit for user ${user.email} has been updated to ${enteredLimit}.`);
-                                                                    }
+                                                                this.getData();
+                                                                if(resp && !resp.error)
+                                                                {
+                                                                    alert(`The recourse limit for user ${user.email} has been updated to ${enteredLimit}.`);
+                                                                }
                                                             })
                                                         
                                                         
