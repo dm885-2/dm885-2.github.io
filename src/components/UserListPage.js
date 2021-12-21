@@ -21,9 +21,7 @@ class UserListPage extends React.Component {
      */
     getData()
     {
-        console.log("GEETTIIING DATE")
         API.call("get", "users").then(resp => {
-            console.log("resp", resp);
             if(resp && !resp.error)
             {
                 this.setState({
@@ -57,13 +55,14 @@ class UserListPage extends React.Component {
                                 {
                                     this.state.user.map(user => {
                                         return (
+                                            console.log(user),
                                             <tr key={user.id}>
                                                 <td>{user.id}</td>
                                                 <td>{user.email}</td>
                                                 <td>{user.rank}</td>
                                                 <td>
                                                     <button className="btn btn-danger" onClick={() => {
-                                                        API.call("DELETE", `/users/${user.id}`).then(resp => {
+                                                        API.call("DELETE", `users/${user.id}`).then(resp => {
                                                             if(resp && !resp.error)
                                                             {
                                                                 this.getData();
@@ -73,7 +72,7 @@ class UserListPage extends React.Component {
                                                 </td>
                                                 <td>
                                                     <button className="btn btn-danger" onClick={() => {
-                                                        API.call("PUT", `/users/${user.id}/stop`).then(resp => {
+                                                        API.call("PUT", `users/${user.id}/stop`).then(resp => {
                                                             if(resp && !resp.error)
                                                             {
                                                                 this.getData();
@@ -105,8 +104,7 @@ class UserListPage extends React.Component {
                                                         
                                                         </div>
                                                     }
-                                                    }}>
-                                                    {user.recourseLimit}</button></td>
+                                                    }}>{user.recourseLimit}</button></td>
                                             </tr>
                                         );
                                     })
