@@ -61,7 +61,7 @@ export default class HistoryPage extends React.Component {
                                                 <td>{log.sessionId}</td>
                                                 <td>{log.requestId}</td>
                                                 <td>{log.logPath}</td>
-                                                <td>{Date(Number(log.timestamp)).toLocaleString()}</td>
+                                                <td>{new Date(Number(log.timestamp)).toLocaleString()}</td>
                                             </tr>
                                         ))}
                                     </tbody>
