@@ -13,6 +13,9 @@ import EditFilePage from "./components/EditFilePage";
 import LogPage from "./components/LogPage";
 
 import {API, IP} from "./helpers"
+import GrafanaRabbitMQPage from './components/GrafanaRabbitMQPage';
+import GrafanaMySQLPage from './components/GrafanaMySQLPage';
+import GrafanaKubernetesPage from './components/GrafanaKubernetesPage';
 
 export default function App()
 {
@@ -32,7 +35,7 @@ export default function App()
     localStorage.removeItem("token" + IP);
     setUserRank(1);
     setRefreshToken(false);
-  }; 
+  };
 
   useEffect(() => {
     const t = localStorage.getItem("token" + IP);
@@ -75,6 +78,10 @@ export default function App()
                         <li className="nav-item">
                           <Link className="nav-link" to="/log">Logs</Link>
                         </li>
+
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/grafana/RabbitMQ">Grafana</Link>
+                        </li>
                       </>
                     }
                     <li className="nav-item">
@@ -99,6 +106,15 @@ export default function App()
               </AdminRoute>
               <AdminRoute exact={true} path="/log">
                 <LogPage/>
+              </AdminRoute>
+              <AdminRoute exact={true} path="/grafana/RabbitMQ">
+                <GrafanaRabbitMQPage/>
+              </AdminRoute>
+              <AdminRoute exact={true} path="/grafana/MySQL">
+                <GrafanaMySQLPage/>
+              </AdminRoute>
+              <AdminRoute exact={true} path="/grafana/Kubernetes">
+                <GrafanaKubernetesPage/>
               </AdminRoute>
               <Route exact={true} path="/model/:id">
                 <EditFilePage type={0}/>
