@@ -82,7 +82,7 @@ class UserListPage extends React.Component {
                                                 </td>
                                                 <td> 
                                                     <button className="btn btn-secondary" onClick={() => {
-                                                       const enteredLimit = prompt('Set recourse limit for user: ' + user.username, user.recourseLimit);
+                                                       const enteredLimit = prompt('Set recourse limit for user: ' + user.email, user.solverLimit);
                                                        if (this.isInt(enteredLimit) === true){
                                                          API.call("PUT", `/users/${user.id}/recourseLimit/${enteredLimit}`).then(resp => {
                                                                 if(resp && !resp.error)
@@ -90,7 +90,7 @@ class UserListPage extends React.Component {
                                                                     this.getData();
                                                                     <div class="alert alert-success" role="alert">
                                                                         <h4 class="alert-heading">Updated!</h4>
-                                                                        <p>The recourse limit for user {user.username} has been updated to {enteredLimit}.</p>
+                                                                        <p>The recourse limit for user {user.email} has been updated to {enteredLimit}.</p>
                                                                         </div>
                                                                 }
                                                             
@@ -100,11 +100,11 @@ class UserListPage extends React.Component {
                                                     }else{
                                                         <div class="alert alert-alert" role="alert">
                                                         <h4 class="alert-heading">Error!</h4>
-                                                        <p>The recourse limit for user {user.username} has not been updated. Please enter a valid number.</p>
+                                                        <p>The recourse limit for user {user.email} has not been updated. Please enter a valid number.</p>
                                                         
                                                         </div>
                                                     }
-                                                    }}>{user.recourseLimit}</button></td>
+                                                    }}>{user.solverLimit}</button></td>
                                             </tr>
                                         );
                                     })
