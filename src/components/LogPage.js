@@ -50,6 +50,7 @@ export default class HistoryPage extends React.Component {
                                         <th>Session</th>
                                         <th>Request</th>
                                         <th>Path</th>
+                                        <th>Timestamp</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,6 +67,7 @@ export default class HistoryPage extends React.Component {
                                                 <td>{log.sessionId}</td>
                                                 <td>{log.requestId}</td>
                                                 <td>{log.logPath}</td>
+                                                <td>{log.timestamp}</td>
                                             </tr>
                                         ))}
                                     </tbody>
