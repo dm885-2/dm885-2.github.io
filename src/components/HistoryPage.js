@@ -4,13 +4,19 @@ import {Link} from "react-router-dom";
 import {API, statuses} from "../helpers";
 
 export default class HistoryPage extends React.Component {
-    state = {
+    emptyState = {
         outputs: {},
         history: [],
         models: [],
         data: []
     };
+    state = {...this.emptyState};
     shouldGetData = true;
+
+    componentWillMount()
+    {
+        this.setState({...this.emptyState});
+    }
 
     componentDidMount()
     {
@@ -156,8 +162,8 @@ export default class HistoryPage extends React.Component {
                                         {this.state.history.map(history => {
                                             const output = this.state.outputs[history.id];
                                             return (
-                                                <>
-                                                    <tr key={history.id + output}>
+                                                <React.Fragment key={history.id}>
+                                                    <tr>
                                                         <td>{history.id}</td>
                                                         <td>{history.status !== 0 && this.toMinutes(history.timeRunning)}</td>
                                                         <td>
@@ -189,7 +195,7 @@ export default class HistoryPage extends React.Component {
                                                                     </thead>
                                                                     <tbody>
                                                                         {
-                                                                            output.map(out => <tr>
+                                                                            output.map(out => <tr key={out.id}>
                                                                                     <td>{out.optimal && <b>Yes</b>}</td>
                                                                                     <td>{out.result.join(", ")}</td>
                                                                                 </tr>)
@@ -199,7 +205,7 @@ export default class HistoryPage extends React.Component {
                                                             </td>
                                                         </tr>
                                                     }
-                                                </>
+                                                </React.Fragment>
                                             );
                                         })}
                                     </tbody>

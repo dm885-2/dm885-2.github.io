@@ -67,6 +67,7 @@ class UserListPage extends React.Component {
                                                                 this.getData();
                                                             }
                                                         });
+                                                        setTimeout(() => window.location.reload(), 2000);
                                                     }}>Delete</button>
                                                 </td>
                                                 <td>
