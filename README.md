@@ -1,4 +1,10 @@
 # Website
+## ENV variables
+
+```
+apiURL: The URL to the API, defaults to either localhost or our api if not set.
+```
+
 ## Deployment Guide
 ### Deploy to GitHub Pages
 Push this folder to you GitHub acount.
