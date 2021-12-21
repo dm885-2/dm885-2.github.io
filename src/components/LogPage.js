@@ -1,9 +1,3 @@
-// React component for the log page. The pages should call api /logs and then pass the data to this component.
-// The component will then render the log data into a table with the following columns:
-// -`userId` 
-// -`sessionId`
-// -`requestId`
-// - `logPath`
 
 import React from "react";
 
@@ -67,7 +61,7 @@ export default class HistoryPage extends React.Component {
                                                 <td>{log.sessionId}</td>
                                                 <td>{log.requestId}</td>
                                                 <td>{log.logPath}</td>
-                                                <td>{log.timestamp}</td>
+                                                <td>{Date(Number(log.timestamp)).toLocaleString()}</td>
                                             </tr>
                                         ))}
                                     </tbody>
