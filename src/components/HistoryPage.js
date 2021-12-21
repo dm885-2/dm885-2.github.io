@@ -5,6 +5,7 @@ import {API, statuses} from "../helpers";
 
 export default class HistoryPage extends React.Component {
     state = {
+        outputs: {},
         history: [],
         models: [],
         data: []
@@ -27,7 +28,6 @@ export default class HistoryPage extends React.Component {
         if(this.shouldGetData)
         {
             this.getData(0).then(d => {
-                console.log("Resolved!!");
                 setTimeout(() => this.getInt(), 3000);
             });
         }
@@ -64,7 +64,6 @@ export default class HistoryPage extends React.Component {
                     d.timeRunning = 0;
                     if(d.status === 1)
                     {
-                        console.log(Date.now(), Number(d.startTime));
                         d.timeRunning = Date.now() - Number(d.startTime);
                     }else if(d.status === 2)
                     {
@@ -95,7 +94,6 @@ export default class HistoryPage extends React.Component {
                 }
             });
         }
-        console.log("Doone!");
     }
 
     async loadOutput(id)
@@ -103,13 +101,21 @@ export default class HistoryPage extends React.Component {
         const out = await API.call("GET", "jobs/" + id);
         if(out && !out.error)
         {
-            const index = this.state.history.findIndex(d => d.id === id);
-            let history = [...this.state.history];
-            history[index].output = out.data;
-            history[index].opened = true;
+            let outputs = {...this.state.outputs};
+            outputs[id] = JSON.parse(out.data.content);
             this.setState({
-                history
+                outputs
             });
+        }
+    }
+
+    async deleteJob(id)
+    {
+        const check = window.confirm("Are you sure you want to delete this job?");
+        if(check)
+        {
+            await API.call("DELETE", "jobs/" + id);
+            await this.getData(0);
         }
     }
 
@@ -137,25 +143,59 @@ export default class HistoryPage extends React.Component {
                                         <th>#</th>
                                         <th>Running time</th>
                                         <th>Status</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.history.map(history => (
-                                        <tr key={history.id}>
-                                            <td>{history.id}</td>
-                                            <td>{history.status !== 0 && this.toMinutes(history.timeRunning)}</td>
-                                            <td>
+                                    {this.state.history.map(history => {
+                                        const output = this.state.outputs[history.id];
+                                        return (
+                                            <>
+                                                <tr key={history.id + output}>
+                                                    <td>{history.id}</td>
+                                                    <td>{history.status !== 0 && this.toMinutes(history.timeRunning)}</td>
+                                                    <td>
+                                                        {
+                                                            history.status === 1 ? <div className="spinner-border text-primary" role="status"/> : statuses[history.status]
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        {
+                                                            history.status === 2 &&
+                                                                <button className="btn btn-secondary" onClick={() => this.loadOutput(history.id)}>Output</button>
+                                                        }
+                                                        {
+                                                            history.status <= 1 &&
+                                                                <button className="btn btn-danger" onClick={() => this.deleteJob(history.id)}>Remove</button>
+                                                        }
+                                                    </td>
+                                                </tr>
                                                 {
-                                                    history.status === 1 ? <div className="spinner-border text-primary" role="status"/> : statuses[history.status]
+                                                    output &&
+                                                    <tr>
+                                                        <td colSpan="4">
+                                                            <table className="table table-info table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Optimal?</th>
+                                                                        <th scope="col"></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {
+                                                                        output.map(out => <tr>
+                                                                                <td>{out.optimal && <b>Yes</b>}</td>
+                                                                                <td>{out.result.join(", ")}</td>
+                                                                            </tr>)
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
                                                 }
-                                            </td>
-                                            {
-                                                history.status === 2 ? <td>
-                                                    <button className="btn btn-secondary" onClick={() => this.loadOutput(history.id)}>Output</button>
-                                                </td> : <td/>
-                                            }
-                                        </tr>
-                                    ))}
+                                            </>
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                         </div>

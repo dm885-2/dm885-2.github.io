@@ -64,7 +64,7 @@ export default class SolversPage extends React.Component {
                     <form onSubmit={e => this.save(e)}>
                         <div className="row">
                             <div className="col-sm-2">
-                                <label htmlFor="name">Name</label>
+                                <label htmlFor="name">Solver name</label>
                             </div>
                             <div className="col-sm-10 pb-1">
                                 <input className="form-control" name="name" required={true} defaultValue={editingData?.name} />
