@@ -55,7 +55,6 @@ class UserListPage extends React.Component {
                                 {
                                     this.state.user.map(user => {
                                         return (
-                                            console.log(user),
                                             <tr key={user.id}>
                                                 <td>{user.id}</td>
                                                 <td>{user.email}</td>
