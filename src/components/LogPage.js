@@ -40,7 +40,7 @@ export default class HistoryPage extends React.Component {
         return (<div className="container pt-8">
                 <div className="row align-items-start">
                     <div className="col-md-12">
-                        <div className="card card-body">
+                        <div className="card card-body mt-4">
                             <h3 className="text-center">Logs</h3>
                             <table className="table table-hover mb-1">
                                 <thead>

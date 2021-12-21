@@ -57,7 +57,7 @@ export default class SolversPage extends React.Component {
         const isNew = this.state.editing === "new";
         const editingData = isEditing ? this.state.solvers[this.state.editing] : {};
 
-        return <div className="container-fluid">
+        return <div className="container pt-4">
             {
                 (isEditing || isNew) && <div className="pb-2 mb-2 border-bottom">
                     <h1>{isEditing ? "Editing solver" : "New solver"}</h1>
