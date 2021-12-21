@@ -147,57 +147,64 @@ export default class HistoryPage extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.history.map(history => {
-                                        const output = this.state.outputs[history.id];
-                                        return (
-                                            <>
-                                                <tr key={history.id + output}>
-                                                    <td>{history.id}</td>
-                                                    <td>{history.status !== 0 && this.toMinutes(history.timeRunning)}</td>
-                                                    <td>
-                                                        {
-                                                            history.status === 1 ? <div className="spinner-border text-primary" role="status"/> : statuses[history.status]
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        {
-                                                            history.status === 2 &&
-                                                                <button className="btn btn-secondary" onClick={() => this.loadOutput(history.id)}>Output</button>
-                                                        }
-                                                        {
-                                                            history.status <= 1 &&
-                                                                <button className="btn btn-danger" onClick={() => this.deleteJob(history.id)}>Remove</button>
-                                                        }
-                                                    </td>
-                                                </tr>
-                                                {
-                                                    output &&
-                                                    <tr>
-                                                        <td colSpan="4">
-                                                            <table className="table table-info table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th scope="col">Optimal?</th>
-                                                                        <th scope="col"></th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    {
-                                                                        output.map(out => <tr>
-                                                                                <td>{out.optimal && <b>Yes</b>}</td>
-                                                                                <td>{out.result.join(", ")}</td>
-                                                                            </tr>)
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </>
-                                        );
-                                    })}
+                                    <tr/>
                                 </tbody>
                             </table>
+                            <div style={{maxHeight: "30vh", overflow: "auto"}}>
+                                <table className="table table-hover">
+                                    <tbody>
+                                        {this.state.history.map(history => {
+                                            const output = this.state.outputs[history.id];
+                                            return (
+                                                <>
+                                                    <tr key={history.id + output}>
+                                                        <td>{history.id}</td>
+                                                        <td>{history.status !== 0 && this.toMinutes(history.timeRunning)}</td>
+                                                        <td>
+                                                            {
+                                                                history.status === 1 ? <div className="spinner-border text-primary" role="status"/> : statuses[history.status]
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                history.status === 2 &&
+                                                                    <button className="btn btn-secondary" onClick={() => this.loadOutput(history.id)}>Output</button>
+                                                            }
+                                                            {
+                                                                history.status <= 1 &&
+                                                                    <button className="btn btn-danger" onClick={() => this.deleteJob(history.id)}>Remove</button>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                    {
+                                                        output &&
+                                                        <tr>
+                                                            <td colSpan="4">
+                                                                <table className="table table-info table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">Optimal?</th>
+                                                                            <th scope="col"></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {
+                                                                            output.map(out => <tr>
+                                                                                    <td>{out.optimal && <b>Yes</b>}</td>
+                                                                                    <td>{out.result.join(", ")}</td>
+                                                                                </tr>)
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -42,7 +42,7 @@ export default class HistoryPage extends React.Component {
                     <div className="col-md-12">
                         <div className="card card-body">
                             <h3 className="text-center">Logs</h3>
-                            <table className="table table-hover">
+                            <table className="table table-hover mb-1">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -53,17 +53,24 @@ export default class HistoryPage extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.logs.map(log => (
-                                        <tr key={log.id}>
-                                            <td>{log.id}</td>
-                                            <td>{log.userId}</td>
-                                            <td>{log.sessionId}</td>
-                                            <td>{log.requestId}</td>
-                                            <td>{log.logPath}</td>
-                                        </tr>
-                                    ))}
+                                    <tr></tr>
                                 </tbody>
                             </table>
+                            <div style={{maxHeight: "70vh", overflow: "auto"}}>
+                                <table className="table table-hover">
+                                    <tbody>
+                                        {this.state.logs.map(log => (
+                                            <tr key={log.id}>
+                                                <td>{log.id}</td>
+                                                <td>{log.userId}</td>
+                                                <td>{log.sessionId}</td>
+                                                <td>{log.requestId}</td>
+                                                <td>{log.logPath}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
