@@ -1,4 +1,4 @@
-export const IP = process.env?.apiURL ?? ((!process.env.NODE_ENV || process.env.NODE_ENV === 'development') && 0 ? "http://localhost:8080" : "https://dm885.smessie.com"); // Gateway IP
+export const IP = process.env?.apiURL ?? ((!process.env.NODE_ENV || process.env.NODE_ENV === 'development') && 0 ? "http://localhost:8080" : "http://35.228.145.45/"); // Gateway IP
 
 export function getInputValues(elements)
 {
