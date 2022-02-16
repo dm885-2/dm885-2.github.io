@@ -21,6 +21,7 @@ export class API {
        return fetch(`${IP}/${endpoint}`, {
             method,
             headers: {
+                "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
                 ...headers,
                 "Authorization": API.accessToken ? `Bearer ${API.accessToken}` : undefined,
