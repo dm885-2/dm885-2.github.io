@@ -20,6 +20,7 @@ export class API {
     {
        return fetch(`${IP}/${endpoint}`, {
             method,
+            mode: 'cors',
             headers: {
                 "Content-Type": "application/json",
                 ...headers,
